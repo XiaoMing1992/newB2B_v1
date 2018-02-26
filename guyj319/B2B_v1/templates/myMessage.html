@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>我的消息</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/myMessage.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+ <div class="container container-custom">
+    <div class="card" style="padding-right: 15px; padding-left: 15px;">
+      <div class="row title-panel">
+        <div class="col-lg-offset-1 col-lg-3">
+          <h4 class="title-text">我的消息</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="card time-line">
+          {% for item in date_list %}
+          <p class="date">{{ item.day.year }}年{{ item.day.month }}月{{ item.day.day }}日</p>
+          <ul>
+            {% for moment_item in item.moment_list %}
+              <li id="moment-{{ moment_item.id }}"><p class="moment">{{ moment_item.hour }}:{{ moment_item.minute }}:{{ moment_item.second }}<i class="material-icons" style="color: #09c">album</i></p></li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <ul>
+          <li style="height: 34px;"></li>
+          {% for message_item in message_list %}
+            {% if message_item.id == "blank" %}
+              <div style="margin-bottom: 108px;"></div>
+            {% else %}
+              <li class="first-item-blank" id="message-{{ message_item.id }}">
+              <div class="card">
+                <div class="col-lg-10">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <h4>{{ message_item.company_name }}</h4>
+                    </div>
+                    <div class="col-lg-4">
+                      <p style="margin-top: 10px;">
+                        {% if message_item.tag_type == 0 %}
+                          发布了求购信息
+                        {% elif message_item.tag_type == 1 %}
+                          浏览了您的信息
+                        {% elif message_item.tag_type == 2 %}
+                          发布了符合您需求的车源
+                        {% endif %}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <p>
+                        {% if message_item.action_type == 0 %}
+                          [出售车源]
+                        {% elif message_item.action_type == 1 %}
+                          [寻找车源]
+                        {% endif %}
+                        {{ message_item.detail }}<a href="/detail/?operation_id={{ message_item.car_id }}" class="view-detail">(查看详情)</a></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <button type="button" class="btn" id="delete-{{ message_item.id }}"><i class="material-icons">delete</i></button>
+                </div>
+              </div>
+            </li>
+            {% endif %}
+            
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="page-blank"></div>
+  </div>
+
+  <div class="panel-blank"></div>
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/myMessage.js" %}"></script>
+{% endblock %}

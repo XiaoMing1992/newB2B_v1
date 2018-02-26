@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>搜索车源</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/search.css" %}" rel="stylesheet">
+  <link href="{% static "css/login-register.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div style="margin-bottom: 50px"></div>
+  <div class="container">
+    <!-- 保存需求面板 -->
+    <div class="row">
+      <div class="card search-panel">
+        <div class="col-lg-1">
+          <h5 class="search-tip">搜索></h5>
+        </div>
+        <div class="col-lg-9">
+          <div style="height: 20px;"></div>
+          <ul id="selected-condition-panel">
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-brand">{{ search_conditions.brand }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-series">{{ search_conditions.series }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-car-type">{{ search_conditions.carModel }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-province">{{ search_conditions.province }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-city">{{ search_conditions.city }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-0">{{ search_conditions.payment }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-1">{{ search_conditions.color }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-2">{{ search_conditions.shipType }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-3">{{ search_conditions.carType }}
+              </p>
+            </li>
+            <li>
+              <p class="selected-condition"
+                 id="selected-condition-4">{{ search_conditions.logistics }}
+              </p>
+            </li>
+          </ul>
+          <!--
+          -->
+        </div>
+        <div class="col-lg-2">
+          <!-- TODO: 此处使用外联样式出现加载和渲染的先后顺序不符合要求。 -->
+          <button class="btn btn-raised btn-danger" style="background: #e57373; color: white" id="svae-demand">保存我的需求</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-blank"></div>
+
+    <!-- 搜索条件设置面板 -->
+    <div class="row">
+        <div class="card">
+          <div class="card-blank"></div>
+          <div class="condition-panel-blank"></div>
+          <div class="row">
+            <div class="col-lg-1">
+              <p class="search-tag">车型:</p>
+            </div>
+            <div class="col-lg-5">
+              <!-- 品牌选择 -->
+              <select id="brandSelector">
+                <option value="1">选择品牌</option>
+                <option value="2">宝马</option>
+                <option value="3">大众</option>
+                <option value="4">奔驰</option>
+                <option value="5">特斯拉</option>
+              </select>
+              <!-- 车系选择 -->
+              <select id="seriesSelector">
+                <option value="1">选择车系</option>
+                <option value="2">埃尔法</option>
+                <option value="3">艾瑞泽</option>
+                <option value="4">奥丁</option>
+                <option value="5">奥迪A1</option>
+              </select>
+              <!-- 车型选择 -->
+              <select id="carModelSelector">
+                <option value="1">选择车款</option>
+                <option value="2">2015款</option>
+                <option value="3">2014款</option>
+                <option value="4">2013款</option>
+                <option value="5">2012款</option>
+                <option value="6">2011款</option>
+              </select>
+            </div>
+            <div class="col-lg-1">
+              <p class="search-tag">颜色:</p>
+            </div>
+            <div class="col-lg-5">
+              <ul id="color">
+                <li class="search-condition" id="color-option-0">
+                  <a href="#">不限</a>
+                </li>
+                <li class="search-condition" id="color-option-1">
+                  <a href="#">珠光白</a>
+                </li>
+                <li class="search-condition" id="color-option-2">
+                  <a href="#">土豪金</a>
+                </li>
+                <li class="search-condition" id="color-option-3">
+                  <a href="#">钻灰</a>
+                </li>
+                <li class="search-condition" id="color-option-4">
+                  <a href="#">金灰</a>
+                </li>
+                <li class="search-condition" id="color-option-5">
+                  <a href="#">银白</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="condition-panel-blank"></div>
+          <div class="row">
+            <div class="col-lg-1">
+              <p class="search-tag">销售区域:</p>
+            </div>
+            <div class="col-lg-5">
+              <!-- 省份 -->
+              <select id="region-option-1">
+                <option value="1">全国</option>
+                <option value="2">安徽省</option>
+                <option value="3">北京市</option>
+                <option value="4">广东省</option>
+                <option value="5">浙江省</option>
+              </select>
+
+              <!-- 市县 -->
+              <select id="region-option-2">
+                <option value="1">全省</option>
+                <option value="2">广州市</option>
+                <option value="3">深圳市</option>
+                <option value="4">珠海市</option>
+                <option value="5">中山市</option>
+              </select>
+            </div>
+            <div class="col-lg-1">
+              <p class="search-tag">付款方式:</p>
+            </div>
+            <div class="col-lg-5">
+              <ul id="payment">
+                <li class="search-condition" id="payment-option-0">
+                  <a href="#">不限</a>
+                </li>
+                <li class="search-condition" id="payment-option-1">
+                  <a href="#">定金</a>
+                </li>
+                <li class="search-condition" id="payment-option-2">
+                  <a href="#">全款</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="condition-panel-blank"></div>
+          <div class="row">
+            <div class="col-lg-1">
+              <p class="search-tag">报价:</p>
+            </div>
+            <div class="col-lg-5">
+              <table>
+                <tr>
+                  <td>
+                    <input type="number" id="lowest-price" placeholder="¥" />
+                  </td>
+                  <td>&nbsp;&nbsp;&nbsp;</td>
+                  <td>
+                    <input type="number" id="highest-price" placeholder="¥"/>
+                  </td>
+                  <td>
+                    <button type="button" id="submitPrice">确定</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-lg-1">
+              <p class="search-tag">车辆类型:</p>
+            </div>
+            <div class="col-lg-5">
+              <ul id="car-type">
+                <li class="search-condition" id="car-type-option-0">
+                  <a href="#">不限</a>
+                </li>
+                <li class="search-condition" id="car-type-option-1">
+                  <a href="#">中规标配</a>
+                </li>
+                <li class="search-condition" id="car-type-option-2">
+                  <a href="#">中规加装</a>
+                </li>
+                <li class="search-condition" id="car-type-option-3">
+                  <a href="#">平行车</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="condition-panel-blank"></div>
+          <div class="row">
+            <div class="col-lg-1">
+              <p class="search-tag">货期:</p>
+            </div>
+            <div class="col-lg-5">
+              <ul id="ship-date">
+                <li class="search-condition" id="ship-date-option-0">
+                  <a href="#">不限</a>
+                </li>
+                <li class="search-condition" id="ship-date-option-1">
+                  <a href="#">现货</a>
+                </li>
+                <li class="search-condition" id="ship-date-option-2">
+                  <a href="#">期货</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-1">
+              <p class="search-tag">物流方式:</p>
+            </div>
+            <div class="col-lg-5">
+              <ul id="logistics">
+                <li class="search-condition" id="logistics-option-0">
+                  <a href="#">不限</a>
+                </li>
+                <li class="search-condition" id="logistics-option-1">
+                  <a href="#">自选物流</a>
+                </li>
+                <li class="search-condition" id="logistics-option-2">
+                  <a href="#">委托物流</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="condition-panel-blank"></div>
+        </div>
+    </div>
+
+    <div class="panel-blank"></div>
+
+    <!-- 查询结果字段名称 -->
+    <div class="row">
+      <div class="card result-field-panel" >
+        <div class="row">
+          <div class="col-lg-offset-1 col-lg-3">
+            <h4 style="text-align:center">车型</h4>
+          </div>
+          <div class="col-lg-1">
+            <h4 style="text-align:center">地区</h4>
+          </div>
+          <div class="col-lg-2">
+            {% if price_sorting_type == "up" %}
+              <a title="升序排列" href="#" class="price-up-sorting" id="priceSorting">
+                报价<i class="material-icons">arrow_downward</i>
+              </a>
+            {% else %}
+              <a title="降序排列" href="#" class="price-down-sorting" id="priceSorting">
+                报价<i class="material-icons">arrow_upward</i>
+              </a>
+            {% endif %}
+          </div>
+          <div class="col-lg-2">
+            <h4 style="text-align:center">车辆信息</h4>
+          </div>
+          <div class="col-lg-2">
+            {% if time_sorting_type == "up" %}
+              <a title="升序排列" href="#" class="time-up-sorting" id="updateTimeSorting">
+                发布时间<i class="material-icons">arrow_downward</i>
+              </a>
+            {% else %}
+              <a title="降序排列" href="#" class="time-down-sorting" id="updateTimeSorting">
+                发布时间<i class="material-icons">arrow_upward</i>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-blank"></div>
+    <!-- 显示查询结果 -->
+    {% for item in result_list %}
+      <div class="row" id="detail-{{ item.detail_id }}">
+        <div class="card">
+          <div style="height: 10px;"></div>
+          <div class="row">
+            <div class="col-lg-1" style="margin-left: 10px;">
+              {% if item.is_future %}
+                <img src="{% static "img/futures.png" %}">
+              {% else %}
+                <img src="{% static "img/for_sale.png" %}">
+              {% endif %}
+            </div>
+            <div class="col-lg-3">
+              <h4 style="text-align:center; margin-top: 30px;">{{ item.series }}</h4>
+            </div>
+            <div class="col-lg-1">
+              <h4 style="text-align:center; margin-top: 30px;">{{ item.region }}</h4>
+            </div>
+            <div class="col-lg-2">
+              <h4 class="price-tag" style="; margin-top: 30px;">{{ item.price.origin_price }}万 | 下{{ item.price.discount_amount }}万</h4>
+            </div>
+            <div class="col-lg-2">
+              <h4 style="text-align:center ; margin-top: 30px;">{{ item.detail }}</h4>
+            </div>
+            <div class="col-lg-2">
+              <h4 style="text-align:center; margin-top: 30px;">{{ item.update_time.year }}年{{ item.update_time.month }}月{{ item.update_time.day }}日</h4>
+            </div>
+          </div>
+          <div style="height: 10px;"></div>
+        </div>
+      </div>
+
+      <div class="result-panel-blank"></div>
+    {% endfor %}
+
+    <div class="row" id="page-total-{{ allPage }}">
+      <div class="col-lg-offset-5 col-lg-4">
+        <!-- 如果当前是第一页，就不显示【上一页】链接 -->
+        {% ifnotequal curPage 1 %}
+          <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageUp">
+              上一页
+          </a>
+        {% endifnotequal %}
+
+        第{{ curPage }}/{{ allPage }}页
+
+         <!-- 如果当前是最后一页，就不显示【下一页】链接 -->
+        {% ifnotequal curPage allPage %}
+          <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageDown">
+              下一页
+          </a>
+        {% endifnotequal %}
+        
+      </div>
+    </div>
+  </div>
+
+ <div class="panel-blank"></div>
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/jquery.validate.min.js" %}"></script>
+  <script src="{% static "js/search.js" %}"></script>
+  <script src="{% static "js/login-register.js" %}"></script>
+{% endblock %}

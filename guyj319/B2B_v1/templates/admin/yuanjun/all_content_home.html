@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>内容管理</title>
+</head>
+
+<body>
+   <div class="well">
+      <p>出售车型             地区       会员名称        联系人    联系电话         状态     操作</p>
+      {% for item in content_list%}
+          <p>
+              {{ item.user_trademark }}          {{ item.region }}    {{ item.company_name }}
+
+              {% for people in item.peoples %}
+                  {{ people.name }}     {{ people.phone }}
+              {% endfor %}
+
+                {% if item.status == 0 %}
+                   未认证
+                {% elif item.status == 1 %}
+                   认证
+                {% else %}
+                   无效
+                {% endif %}
+
+              <a href="/modifyVIP/?operation_id={{ item.id }}">编辑</a>
+              <a href="/deleteVIP/?operation_id={{ item.id }}">作废</a>
+          </p>
+        {% empty %}
+          <p>无结果</p>
+       {% endfor %}
+       <p><a href="/adminHome/">主页</a></p>
+      <p><a href="/adminLogout/">退出</a></p>
+   </div>
+<br>
+</body>
+</html>

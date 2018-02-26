@@ -1,0 +1,15 @@
+
+/*对话框样式*/
+.title-bar{
+  color: white;
+  background: #39aea8;
+}
+
+.modal-title-custom{
+	margin-top: -15px;
+}
+
+.custom-link{ 
+	text-decoration: underline;
+	color: #09c;
+}

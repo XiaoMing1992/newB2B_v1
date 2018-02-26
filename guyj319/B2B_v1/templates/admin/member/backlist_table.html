@@ -1,0 +1,160 @@
+<!-- content start -->
+<div class="admin-content">
+  <div class="admin-content-body">
+
+    <div style="height: 20px;"></div>
+    <hr>
+
+    <div class="am-g">
+      <div class="am-u-lg-３">
+        <strong>地区:</strong>
+
+        <select data-am-selected="{btnSize: 'sm', btnWidth: '100'}">
+          <option value="option０">请选择省份</option>
+          <option value="option1">广东省</option>
+          <option value="option2">江西省</option>
+          <option value="option3">安徽省</option>
+          <option value="option3">黑龙江省</option>
+          <option value="option3">湖南省</option>
+        </select>
+
+        <select data-am-selected="{btnSize: 'sm', btnWidth: '100'}">
+          <option value="option０">请选择城市</option>
+          <option value="option1">广东省</option>
+          <option value="option2">江西省</option>
+          <option value="option3">安徽省</option>
+          <option value="option3">黑龙江省</option>
+          <option value="option3">湖南省</option>
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+
+        <strong>主营品牌:</strong>
+
+        <select data-am-selected="{btnSize: 'sm', btnWidth: '100'}">
+          <option value="option０">请选择品牌</option>
+          <option value="option1">广东省</option>
+          <option value="option2">江西省</option>
+          <option value="option3">安徽省</option>
+          <option value="option3">黑龙江省</option>
+          <option value="option3">湖南省</option>
+        </select>
+
+        <select data-am-selected="{btnSize: 'sm', btnWidth: '100'}">
+          <option value="option０">请选择厂商</option>
+          <option value="option1">广东省</option>
+          <option value="option2">江西省</option>
+          <option value="option3">安徽省</option>
+          <option value="option3">黑龙江省</option>
+          <option value="option3">湖南省</option>
+        </select>
+
+        &nbsp;&nbsp;
+
+        <strong>联系人:</strong>
+        <input type="text" style="width: 120px;">
+
+        <strong>联系电话:</strong>
+        <input type="text" style="width: 120px;">
+
+        <button type="button" class="am-btn am-btn-danger">筛选</button>
+      </div>
+    </div>
+
+    <div style="height: 15px;"></div>
+
+    <div class="am-g">
+      <div class="am-u-md-2">
+        <strong>会员状态:</strong>
+      </div>
+      <div class="am-u-md-10">
+        <ul class="" style="list-style: none; margin-left: -100px;">
+          <li style="display: inline;"><a href="#">全部</a></li>
+          <li style="display: inline;"><a href="#">认证</a></li>
+          <li style="display: inline;"><a href="#">未认证</a></li>
+          <li style="display: inline;"><a href="#">无效</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="am-g">
+      <div class="am-u-md-12">
+        <input type="checkbox" />全选
+        &nbsp;
+        <button type="button" class="am-btn am-btn-primary">批量拉黑</button>
+        &nbsp;
+        <button type="button" class="am-btn am-btn-primary">批量作废</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="am-g">
+      <div class="am-u-sm-12">
+        <form class="am-form">
+          <table class="am-table am-table-striped am-table-hover table-main">
+            <thead>
+            <tr>
+              <th></th>
+              <th>ID</th>
+              <th>公司名称</th>
+              <th>所在地区</th>
+              <th>拉黑时间</th>
+              <th>联系人</th>
+              <th>联系电话</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for item in backlist %}
+                <tr id="tr-{{ item.id }}">
+                  <td><input type="checkbox" /></td>
+                  <td>{{ forloop.counter }}</td>
+                  <td><p style="max-width: 150px;">{{ item.company_name }}</p></td>
+                  <td class="am-hide-sm-only">{{ item.region }}</td>
+                  <td class="am-hide-sm-only">
+                    <p style="max-width: 200px;">
+                      {{ item.freeze_date.year }}年
+                      {{ item.freeze_date.month }}月
+                      {{ item.freeze_date.day }}日
+                    </p>
+                  </td>
+                  <td class="am-hide-sm-only">{{ item.contact }}</td>
+                  <td class="am-hide-sm-only">{{ item.phone_number }}</td>
+                  <td>
+                    <div class="am-btn-toolbar">
+                      <div class="am-btn-group am-btn-group-xs">
+                        <button class="am-btn
+                                      am-btn-default
+                                      am-btn-xs
+                                      am-text-secondary">
+                          <span class="am-icon-pencil-square-o"></span> 移除黑名单</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="am-cf">
+            共 15 条记录
+            <div class="am-fr">
+              <ul class="am-pagination">
+                <li class="am-disabled"><a href="#">«</a></li>
+                <li class="am-active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+              </ul>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<!-- content end -->

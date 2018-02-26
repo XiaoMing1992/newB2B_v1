@@ -1,0 +1,599 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>发布车源</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/lib/jquery.datetimepicker.css" %}" rel="stylesheet">
+  <link href="{% static "css/publish.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+  <div class="container">
+    <div class="card" id="section-1">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="title-panel">
+            <p class="title-text">发布车源</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">车辆类型:</p>
+        </div>
+        <div class="col-lg-5">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="中规车" id="middle-specification" name="specification">
+              中规车
+            </label>
+            <label>
+              <input type="checkbox" value="平行车" id="paralle-specification" name="specification">
+              平行车
+            </label>
+            <label>
+              <input type="checkbox" value="加配车" id="add-specification" name="specification">
+              加配车
+            </label>
+            <label>
+              <input type="checkbox" value="高装车" id="high-specification" name="specification">
+              高装车
+            </label>
+          </div>          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <p class="error" id="specification-tip"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">车型:</p>
+        </div>
+        <div class="col-lg-6">
+          <form id="carTypeForm">
+            <select id="brand">
+              <option value="0">请选择品牌</option>
+              <option value="1">大众</option>
+              <option value="2">宝马</option>
+              <option value="3">奔驰</option>
+              <option value="4">劳斯拉斯</option>
+            </select>
+            <select id="series">
+              <option value="0">请选择车系</option>
+              <option value="1">大众</option>
+              <option value="2">宝马</option>
+              <option value="3">奔驰</option>
+              <option value="4">劳斯拉斯</option>
+            </select>
+            <select id="style">
+              <option value="0">请选择车款</option>
+              <option value="1">中规车</option>
+              <option value="2">小型车</option>
+              <option value="3">SUV</option>
+              <option value="4">越野车</option>
+            </select>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <p class="error" id="car-type-tip"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">颜色:</p>
+        </div>
+        <div class="col-lg-6">
+          <form id="color-form">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="白色" id="white" name="color">
+                白色
+              </label>
+              <label>
+                <input type="checkbox" value="黑色" id="black" name="color">
+                黑色
+              </label>
+              <label>
+                <input type="checkbox" value="银色" id="silver" name="color">
+                银色
+              </label>
+              <label>
+                <input type="checkbox" value="灰色" id="grey" name="color">
+                灰色
+              </label>
+              <label>
+                <input type="checkbox" value="红色" id="red" name="color">
+                红色
+              </label>
+              <label>
+                <input type="checkbox" value="金色" id="gold" name="color">
+                金色
+              </label>
+              <label>
+                <input type="checkbox" value="棕色" id="brown" name="color">
+                棕色
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <p class="error" id="color-tip"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">货期:</p>
+        </div>
+        <div class="col-lg-7">
+          <form id="ship-date-form">
+            <div class="input-group">
+              <div class="radio radio-primary">
+                <label>
+                  <input type="radio" name="shipType" id="shipType-1" value="现货" checked="">
+                  现货
+                </label>
+                <label>
+                  <input type="radio" name="shipType" id="shipType-2" value="期货">
+                  期货
+                </label>
+                <input type="text" id="shipDate" disabled="true" placeholder="选择日期"/>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <p class="error" id="ship-date-tip"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">付款方式:</p>
+        </div>
+        <div class="col-lg-4">
+          <form id="payment-form">
+            <div class="input-group">
+              <div class="radio radio-primary">
+                <label>
+                  <input type="radio" name="payment" value="定金" checked="">
+                  定金
+                </label>
+                <label>
+                  <input type="radio" name="payment" value="全款">
+                  全款
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <p class="error" id="payment-tip"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">销售区域:</p>
+        </div>
+        <div class="col-lg-7">
+          <form id="region-form">
+            <div class="radio radio-primary">
+              <label>
+                <input type="radio" name="region" value="0" checked="">
+                全国
+              </label>
+              <label>
+                <input type="radio" name="region" value="1">
+                全省
+              </label>
+              <select id="province1" disabled="true">
+                <option>请选择省份</option>
+                <option>广东省</option>
+                <option>湖南省</option>
+                <option>福建省</option>
+                <option>海南省</option>
+              </select>
+              <label style="margin-left: 20px;">
+                <input type="radio" name="region" value="2">
+                全市
+              </label>
+              <select id="province2" disabled="true">
+                <option>请选择省份</option>
+                <option>广东省</option>
+                <option>湖南省</option>
+                <option>福建省</option>
+                <option>海南省</option>
+              </select>
+              <select id="city" disabled="true">
+                <option>请选择城市</option>
+                <option>北京</option>
+                <option>上海</option>
+                <option>广州</option>
+                <option>深圳</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <p class="error" id="region-tip"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">货运方式:</p>
+        </div>
+        <div class="col-lg-4">
+          <form id="logistics-form">
+            <div class="radio radio-primary">
+              <label>
+                <input type="radio" name="logistics" value="自选物流" checked="">
+                自选物流
+              </label>
+              <label>
+                <input type="radio" name="logistics" value="委托物流">
+                委托物流
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">报价:</p>
+        </div>
+        <div class="col-lg-7">
+          <form>
+            <input type="number" id="carPrice" placeholder="请填写行价">
+            /
+            <input type="number" id="discountRate" placeholder="请填写已优惠的价格">
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <p class="error" id="price-tip"></p>
+        </div>
+      </div>
+      <div class="row" id="contact">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">联系人:</p>
+        </div>
+        {% for item in contact %}
+        <div class="col-lg-2" id="contact-panel-{{ forloop.counter }}">
+            <!-- TODO:使用ul替代table标签 -->
+            <table class="contact-box">
+             <tr>
+               <td><input type="text" id="contactName-{{ forloop.counter }}"
+                          value="{{ item.name }}" placeholder="联系人" disabled="true"/></td>
+               <td>
+                 <a href="#" id="contact-edit-{{ forloop.counter }}" >
+                  <i class="material-icons" id="contact-icon-{{ forloop.counter }}">edit</i>
+                 </a>
+               </td>
+             </tr>
+             <tr>
+               <td><input type="text" id="phoneNumber-{{ forloop.counter }}"
+                  value="{{ item.phone_number }}" placeholder="手机号" disabled="true"/></td>
+               <td><a href="#" id="contact-delete-{{ forloop.counter }}"><i class="material-icons">delete</i></a></td>
+             </tr>
+           </table>
+        </div>
+        {% endfor %}
+        <!-- 增加联系人
+          <div class="col-lg-1" id="contact-add-panel">
+            <button type="button" class="btn btn-raised btn-warning" id="add-contact">
+              <i class="material-icons">add_circle</i>
+            </button>
+          </div>
+        -->
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">备注说明:</p>
+        </div>
+        <div class="col-lg-4">
+          <form>
+            <textarea class="form-control" id="comment" rows="3" placeholder="请填写说明"></textarea>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-1 col-lg-2">
+          <p class="car-info-tag">过期时间:</p>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-group">
+            <input type="text" id="exceedDate" placeholder="选择日期"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-3">
+          <p class="error" id="exceed-date-tip"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-5 col-lg-2">
+          <button type="submit" class="btn btn-raised btn-warning" id="submitCarForm">预览</button>
+        </div>
+      </div>
+
+      <div class="panel-blank"></div>
+    </div>
+    <div class="card" id="section-2">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="title-panel">
+            <p class="title-text">发布车源</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-4 col-lg-9">
+          <div class="panel-blank"></div>
+          <table class="content-row">
+            <tr>
+              <td class="tag">
+                <p>车辆类型：</p>
+              </td>
+              <td>
+                <h3 class="car-specification"></h3>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>车型：</p>
+              </td>
+              <td>
+                <p class="car-type"></p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>颜色：</p>
+              </td>
+              <td>
+                <p class="color-option"></p>
+                <div class="color-sample" style="background-color:"></div>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>货期：</p>
+              </td>
+              <td>
+                <p class="ship-type"></p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>支付方式：</p>
+              </td>
+              <td>
+                <p class="payment"></p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>销售区域：</p>
+              </td>
+              <td>
+                <p class="region"></p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>物流方式：</p>
+              </td>
+              <td>
+                <p class="logistics"></p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>报价：</p>
+              </td>
+              <td>
+                <p class="price"></p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>提货时间：</p>
+              </td>
+              <td>
+                <p class="ship-date"></p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>过期时间：</p>
+              </td>
+              <td>
+                <p class="exceed-date"></p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>联系人：</p>
+              </td>
+              <td>
+                <p class="contact" id="contact1"></p>
+                <p class="contact" id="contact2"></p>
+                <p class="contact" id="contact3"></p>
+              </td>
+            </tr>
+            <tr id="content-row">
+              <td class="tag">
+                <p>备注说明：</p>
+              </td>
+              <td>
+                <p class="comment"></p>
+              </td>
+            </tr>
+          </table>
+          <div class="panel-blank"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-4 col-lg-1">
+          <button type="button" class="btn btn-primary btn-raised" id="return-to-edit">返回修改</button>
+        </div>
+        <div class="col-lg-offset-1 col-lg-1">
+          <button type="button" class="btn btn-warning btn-raised" id="publish-car">发布</button>
+        </div>
+      </div>
+      <div class="panel-blank"></div>
+    </div>
+    <div class="card" id="section-3">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="title-panel">
+            <p class="title-text">发布车源</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-4 col-lg-6">
+          <h4>恭喜！你的车源已发布成功！</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-offset-5 col-lg-2">
+          <a href="/" class="btn btn-warning btn-raised">随便逛逛</a>
+        </div>
+      </div>
+      <div class="panel-blank"></div>    
+    </div>
+
+    <div class="panel-blank"></div>
+  </div>
+
+  <div class="panel-blank"></div>
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+  <script src="{% static "js/jquery.datetimepicker.full.min.js" %}"></script>
+  <script>
+    $('#shipDate').datetimepicker({
+      yearOffset:0,
+      lang:'ch',
+      timepicker:false,
+      format:'d/m/Y',
+      formatDate:'Y/m/d'
+    });
+    $('#exceedDate').datetimepicker({
+      yearOffset:0,
+      lang:'ch',
+      timepicker:false,
+      format:'d/m/Y',
+      formatDate:'Y/m/d'
+    });
+  </script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/jquery.validate.min.js" %}"></script>
+  <script src="{% static "js/publish.js" %}"></script>
+{% endblock %}
+
+{% block footer %}
+  {% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>商家主页</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/merchant.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+  <div class="container">
+    <div class="card gradient">
+      <div class="business-card-blank"></div>
+      <div class="row" id="merchant-{{ merchant_material.id }}">
+        <div class="col-lg-3">
+          <img src="{% static merchant_material.image_path %}" style="width:150px; height: 100px; margin-left: 50px" alt="我的头像">
+        </div>
+        <div class="col-lg-6">
+          <h4 class="merchant-material">{{ merchant_material.company_name }}</h4>
+          <p class="merchant-material">{{ merchant_material.location }} | {{ merchant_material.merchant_type }}</p>
+          <p class="merchant-material">联系人:{{ merchant_material.contact_name }}</p>
+          <p class="merchant-material">电话:{{ merchant_material.phone_number }}</p>
+          <p class="merchant-material">简介：{{ merchant_material.introduction }}</p>
+        </div>
+        <div class="col-lg-3">
+          <div class="row">
+            <p class="collection-tip-number">{{ merchant_material.collected_number }}</p>
+            <p class="collection-tip-text">人收藏</p>
+          </div>
+          <div class="row">
+            <p class="collection-tip-number">{{ merchant_material.published_number }}</p>
+            <p class="collection-tip-text">个发布</p>
+          </div>
+          <div class="row">
+            <a href="#" class="btn btn-raiesed" id="collectMerchant"
+            {% if is_merchant_collected %}
+               style="background: #aaa; color: white;">
+               商家已收藏</a>
+            {% else %}
+               style="background: #f60; color: white;">
+               <i class="material-icons">star</i>收藏商家</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="business-card-blank"></div>
+    </div>
+  </div>
+
+  <div class="panel-blank"></div>
+
+  <div class="container">
+    <div class="card" style="padding-right: 15px; padding-left: 15px;">
+      <div class="row title-panel">
+        <div class="col-lg-offset-1 col-lg-3">
+          <h4 class="title-text">TA的发布</h4>
+        </div>
+      </div>
+    </div>
+    {% for item in publish_info %}
+    <div class="collection-blank"></div>
+    <div class="card" id="detail-{{ item.car_id }}">
+      <div class="row">
+        <div class="col-lg-9">
+          <table>
+            <tr>
+              <td><h4>{{ item.series_detail.brand }} {{ item.series_detail.displacement }} {{ item.series_detail.other }}</h4></td>
+            </tr>
+            <tr>
+              <td><p class="update-time">{{ item.update_time.year }}年{{ item.update_time.month }}月{{ item.update_time.day }}日 更新</p></td>
+            </tr>
+            <tr>
+              <td><p>{{ item.location }}</p></td>
+            </tr>
+            <tr>
+              <td><p>{{ item.commodity_detail.color }}|{{ item.commodity_detail.type }}|{{ item.commodity_detail.style }}</p></td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-lg-3">
+          <h3 class="price-tag">{{ item.price.highest_price }}万|下{{ item.price.lowest_price }}万</h3>
+        </div>
+      </div>
+    </div>
+     {% empty %}
+        <p>TA还没有发布车源</p>
+    {% endfor %}
+    
+    <div class="page-blank"></div>
+  </div>
+
+  <div class="panel-blank"></div>
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/jquery.validate.min.js" %}"></script>
+  <script src="{% static "js/merchant.js" %}"></script>
+{% endblock %}

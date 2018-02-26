@@ -1,0 +1,7 @@
+/*导航栏颜色配置*/
+.nav-custom{ background: black; }
+
+/*hover动作设置*/
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}

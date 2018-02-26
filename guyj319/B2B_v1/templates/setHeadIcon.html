@@ -1,0 +1,16 @@
+{% extends "setHeadIcon_base.html" %}
+
+{% block content %}
+
+    <p class="form-actions">
+        <input onchange="checkFile();"type="file" name="file_icon" value="+ 选择本地图片">
+    </p>
+    <p>只支持JPG、GIF、大小不超过5M</p>
+    {% if tooBig %}
+        <p>图片太大，请重新选择图片</p>
+    {% endif %}
+     <h1>预览</h1>
+       <img id="preview_img1" src=""  height="60" width="60" />
+       <img id="preview_img2" src=""  height="30" width="30" />
+
+{% endblock %}

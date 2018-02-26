@@ -1,0 +1,260 @@
+{% load staticfiles %}
+<div class="navbar nav-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img src="{% static "img/LOGO2_64.png" %}">
+      </a>
+    </div>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">首页</a></li>
+        <li><a href="/searchFromFirstPage/">车源列表</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#loginDialog">发布车源</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#" data-toggle="modal" data-target="#loginDialog">登录</a>
+        </li>
+        <li><p style="padding-top: 20px;">|</p></li>
+        <li>
+          <a href="#" data-toggle="modal" data-target="#invitationCodeDialog">注册</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 登录对话框 -->
+  <div class="modal" id="loginDialog" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header title-bar">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">车栈会员登录</h4>
+          <div style="height: 15px;"></div>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id="loginForm">
+            <fieldset>
+              <div class="form-group">
+                <label for="loginUserName" class="col-md-2 control-label">
+                  <p style="font-size: 1.3em;">用户名</p>
+                </label>
+                <div class="col-md-10">
+                  <input type="text" class="form-control" id="loginUserName" name="loginUserName" placeholder="用户名或手机号">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-3 col-md-8">
+                  <p class="error-tip" id="loginUserNameErrorTip"></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="loginPassword" class="col-md-2 control-label">
+                  <p style="font-size: 1.3em;">密码</p>
+                </label>
+                <div class="col-md-10">
+                  <input type="password" class="form-control" id="loginPassword" name="loginPassword" placeholder="输入密码">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-3 col-md-8">
+                  <p class="error-tip" id="loginPasswordErrorTip"></p>
+                </div>
+              </div>
+              <div class="form-group" style="margin-top: 0;">
+                <div class="col-md-offset-2 col-md-5">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="rememberPassword" style="display: inline;"><p style="color: #ccc; display: inline; margin-left: 5px;">一周免登陆</p>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="checkbox">
+                    <a href="/forgetPassword/" style="padding-left: 45px; font-size: 1.2em; color: #ccc">忘记密码?</a>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-offset-5 col-md-3">
+                  <button type="submit" class="btn btn-raised btn-primary" id="login">登录</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div style="height: 10px;"></div>
+        <div class="row">
+          <div class="col-lg-offset-2 col-lg-8">
+            <hr>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-5">
+              <a href="#" id="toRegister" class="custom-link">没有账号？立即注册-></a>
+            </div>
+          </div>
+          <div style="height: 20px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 邀请码输入对话框 -->
+  <div class="modal" id="invitationCodeDialog" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header title-bar">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">注册车栈会员</h4>
+          <div style="height: 15px;"></div>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id="invitationForm">
+            <fieldset>
+              <div class="col-lg-5 control-label" style="margin-left: 30px;  padding-top: 70px;">
+                  <p>请输入邀请码：</p>
+                </div>
+              <div class="form-group">
+                <div class="col-lg-offset-3 col-lg-6">
+                  <input type="text" class="form-control" id="invitationCode" name="invitationCode">
+                  <p class="error-tip" id="invitationCodeTip"></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-lg-offset-5 col-lg-3">
+                  <button type="submit" class="btn btn-raised btn-primary" id="invitationToRegister" style="margin-left: -20px;">下一步</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div style="height: 70px;"></div>
+        <div class="row">
+          <div class="col-lg-offset-2 col-lg-8">
+            <hr>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-5">
+              <a href="#" class="custom-link" id="invitationToLogin" style="margin-left: -20px;">已有账号？马上登录-></a>
+            </div>
+          </div>
+          <div style="height: 20px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 注册对话框 -->
+  <div class="modal" id="registerDialog" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header title-bar">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">注册车栈会员</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id="registerForm">
+            <div class="form-group">
+            <label for="registerPhoneNumber" class="col-md-2 control-label">手机号</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="registerPhoneNumber" name="registerPhoneNumber" placeholder="请输入手机号">
+            </div>
+          </div>
+            <div class="form-group">
+              <label for="inputEmail" class="col-md-2 control-label">手机验证码</label>
+              <div class="col-md-5">
+                <input type="text" class="form-control" id="verifyCode" name="verifyCode">
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-raised btn-primary" id="getVerifyCode">获取手机验证码</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="registerPhoneNumber" class="col-md-2 control-label">用户名</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" id="userName" name="userName" placeholder="设置您的用户名">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password" class="col-md-2 control-label">密码</label>
+              <div class="col-md-10">
+                <input type="password" class="form-control" id="password" name="password" placeholder="输入密码">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword" class="col-md-2 control-label">确认密码</label>
+              <div class="col-md-10">
+                <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="再次输入密码">
+              </div>
+            </div>
+            <div style="height: 10px;"></div>
+            <div class="form-group" style="margin-top: 0;"> <!-- inline style is just to demo custom css to put checkbox below input above -->
+              <div class="col-md-offset-3 col-md-6">
+                <div class="checkbox">
+                  <label style="margin-left: 20px;">
+                    <input type="checkbox" id="agreement" name="agreement"><a href="#" class="custom-link">阅读并同意车栈网服务协议</a>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-offset-5 col-md-3">
+                <button type="submit" class="btn btn-raised btn-primary" id="register" style="margin-left: -20px;">马上注册</button>
+              </div>
+            </div>
+          </form>
+        </div>        
+        <div class="row">
+          <div class="col-lg-offset-2 col-lg-8">
+            <hr>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-5">
+              <a href="#" id="toLogin" class="custom-link">已有账号？马上登录-></a>
+            </div>
+          </div>
+        </div>
+        <div style="height: 20px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 注册成功后的对话框 -->
+  <div class="modal" id="registerSuccessDialog" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header title-bar">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">注册车栈会员</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-3">
+              <a href="/completeMaterial/" class="btn btn-raised btn-primary">完善资料</a>
+            </div>
+            <div class="col-lg-3">
+              <a href="/search/" class="btn btn-raised btn-primary">先去逛逛</a>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-5">
+              <a href="#" id="registerToLogin" class="custom-link">已有账号？马上登录-></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

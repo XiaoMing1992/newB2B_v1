@@ -1,0 +1,10 @@
+.footer-panel-heading{
+  height: 20px;
+  background: #39aea8;
+}
+
+.footer-title{ font-weight: bold; }
+
+.footer-content{ color: #aaa; }
+
+ul li{ list-style: none; }

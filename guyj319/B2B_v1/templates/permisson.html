@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <title>发布权限通知</title>
+</head>
+
+<body>
+   <div class="well">
+       <form class="form-horizontal" method = 'post'enctype="multipart/form-data">
+        {% csrf_token %}
+         <p>
+             <h2>您好。您尚未具备发布车的权限，请先去完善资料。如果您已经完善资料并且成功提交，请耐心等待，审核通过后，我们会通过短信通知您!</h2>
+         </p>
+        <p class="form-actions">
+            <input type="submit" name="complete_info" value="完善资料"/>
+            <input type="submit" name="go_car_home" value="返回车源列表"/>
+        </p>
+       </form>
+   </div>
+<br>
+
+</body>
+</html>

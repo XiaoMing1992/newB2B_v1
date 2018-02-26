@@ -1,0 +1,270 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>完善资料</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/validate.css" %}" rel="stylesheet">
+  <link href="{% static "css/completeMaterial.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+  <div class="container container-custom">
+    <div class="card">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="title-panel">
+            <p class="title-text">完善资料</p>
+          </div>
+        </div>
+      </div>
+      <form id="materialForm">
+        <div class="row">
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-1">
+              <p class="material-title">公司名称</p>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control" id="companyName" name="companyName" placeholder="公司中文全称，需跟营业执照一致">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-2">
+            <p class="error-tip" id="companyNameErrorTip"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-1">
+              <p class="material-title">商家类型</p>
+            </div>
+            <div class="col-lg-5">
+              <div class="radio radio-primary">
+                <label>
+                  <input type="radio" name="merchantType" value="4s店" checked="">
+                  4s店
+                </label>
+                <label>
+                  <input type="radio" name="merchantType" value="贸易行">
+                  贸易行
+                </label>
+                <label>
+                  <input type="radio" name="merchantType" value="平行进口车行">
+                  平行进口车行
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-1">
+              <p class="material-title">所在区域</p>
+            </div>
+            <div class="col-lg-5">
+              <select id="province">
+                <option>请选择省份</option>
+                <option>广东省</option>
+                <option>湖南省</option>
+                <option>福建省</option>
+                <option>海南省</option>
+              </select>
+              <select id="city">
+                <option>请选择城市</option>
+                <option>北京</option>
+                <option>上海</option>
+                <option>广州</option>
+                <option>深圳</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="contactContainer">
+          <div class="form-group" id="contact">
+            <div class="col-lg-offset-2 col-lg-1">
+              <p class="material-title">联系人</p>
+            </div>
+              <div class="col-lg-2">
+                <input type="text" class="form-control" id="contactName" name="contactName" placeholder="姓名">
+              </div>
+              <div class="col-lg-3">
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="联系方式">
+              </div>
+              <div class="col-lg-1">
+                <button type="button" class="btn btn-raised btn-primary" id="addContact"><i class="material-icons">add</i></button>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-4">
+            <p class="error-tip" id="contactErrorTip"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-1">
+              <p class="material-title">主营品牌</p>
+            </div>
+            <div class="col-lg-6">
+              <textarea class="form-control" rows="3" id="brandIntroduction" name="brandIntroduction"></textarea>
+              <span class="help-block">用逗号隔开。例如：马自达，奔驰，宝马</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-4">
+            <p class="error-tip" id="brandIntroductionErrorTip"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-1">
+              <p class="material-title">上传营业执照</p>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" readonly="" class="form-control" placeholder="浏览图片...">
+              <input type="file" id="licensePhoto" name="licensePhoto">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-4">
+            <p class="error-tip" id="licensePhotoErrorTip"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-1">
+              <p class="material-title">上传身份证照</p>
+            </div>
+            <div class="col-lg-6">
+              <input type="text" readonly="" class="form-control" placeholder="浏览图片...">
+              <input type="file" id="idCardPhoto" name="idCardPhoto">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-4">
+            <p class="error-tip" id="idCardPhotoErrorTip"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <div class="col-lg-4 col-lg-offset-5">
+              <button type="submit" class="btn btn-raised btn-primary">提交</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div id="successTip">
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-6">
+            <h4>恭喜！您已成功完善资料，请等待我们的审核。接下来，您可以-></h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-offset-5 col-lg-2">
+            <a href="/">返回首页</a>
+          </div>
+        </div>
+      </div>
+      <div class="panel-blank"></div>
+  </div>
+  </div>
+
+  <div class="panel-blank"></div>
+{% endblock %}
+{% block jsLibrary %}
+    <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    <script>
+      (function () {
+
+        var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+          var index = $('.bs-component').index($(this).parent());
+          $.get(window.location.href, function (data) {
+            var html = $(data).find('.bs-component').eq(index).html();
+            html = cleanSource(html);
+            $("#source-modal pre").text(html);
+            $("#source-modal").modal();
+          })
+
+        });
+
+        $('.bs-component [data-toggle="popover"]').popover();
+        $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+        $(".bs-component").hover(function () {
+          $(this).append($button);
+          $button.show();
+        }, function () {
+          $button.hide();
+        });
+
+        function cleanSource(html) {
+          var lines = html.split(/\n/);
+
+          lines.shift();
+          lines.splice(-1, 1);
+
+          var indentSize = lines[0].length - lines[0].trim().length,
+              re = new RegExp(" {" + indentSize + "}");
+
+          lines = lines.map(function (line) {
+            if (line.match(re)) {
+              line = line.substring(indentSize);
+            }
+
+            return line;
+          });
+
+          lines = lines.join("\n");
+
+          return lines;
+        }
+
+        $(".icons-material .icon").each(function () {
+          $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+        });
+
+      })();
+
+    </script>
+    <script src="{% static "js/ripples.min.js" %}"></script>
+    <script src="{% static "js/material.min.js" %}"></script>
+    <script src="{% static "js/snackbar.min.js" %}"></script>
+    <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+    <script>
+      $(function () {
+        $.material.init();
+        $(".shor").noUiSlider({
+          start: 40,
+          connect: "lower",
+          range: {
+            min: 0,
+            max: 100
+          }
+        });
+
+        $(".svert").noUiSlider({
+          orientation: "vertical",
+          start: 40,
+          connect: "lower",
+          range: {
+            min: 0,
+            max: 100
+          }
+        });
+      });
+    </script>
+    <script src="{% static "js/jquery.validate.min.js" %}"></script>
+    <script src="{% static "js/completeMaterial.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO文本 -->
+    <meta name="description" content="车栈网是一家致力于汽车B2B的配车公司!">
+    <meta name="author" content="广东乐车科技公司">
+
+    {% block title %}{% endblock %}
+    <!-- 网站logo -->
+    <link rel="shortcut icon" href="{% static "logo.ico" %}" />
+
+    {% block cssLibrary %}
+      <!-- Material Design fonts -->
+      <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+      <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+      <!--本地 出现IE内核浏览器无法正常显示的bug
+        <link href="{% static "css/material-fonts/font.css" %}" rel="stylesheet" type="text/css">
+        <link href="{% static "css/material-fonts/icon.css" %}" rel="stylesheet" type="text/css">
+      -->
+
+      <!-- Bootstrap -->
+      <link href="{% static "css/lib/bootstrap.min.css" %}" rel="stylesheet">
+
+      <!-- Bootstrap Material Design -->
+      <link href="{% static "css/lib/bootstrap-material-design.min.css" %}" rel="stylesheet">
+      <link href="{% static "css/lib/ripples.min.css" %}" rel="stylesheet">
+      <link href="{% static "css/lib/snackbar.min.css" %}" rel="stylesheet">
+
+      <!-- 自定义的通用组件css -->
+      <link href="{% static "css/navigation.css" %}" rel="stylesheet">
+      <link href="{% static "css/footer.css" %}" rel="stylesheet">
+
+      <!-- 浏览器样式重置css -->
+      <link href="{% static "css/reset.css" %}" rel="stylesheet">
+    {% endblock %}
+
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+
+    {% block navigation %}
+      {% if is_login %}
+          {% include "navigation.html" %}
+      {% else %}
+          {% include "navigationNoLogin.html" %}
+      {% endif %}
+    {% endblock %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% block footer %}
+        {% include "footer.html" %}
+    {% endblock %}
+
+    {% block jsLibrary %}
+      <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+      <script src="{% static "js/bootstrap.min.js" %}"></script>
+      <script>
+        (function () {
+
+          var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+            var index = $('.bs-component').index($(this).parent());
+            $.get(window.location.href, function (data) {
+              var html = $(data).find('.bs-component').eq(index).html();
+              html = cleanSource(html);
+              $("#source-modal pre").text(html);
+              $("#source-modal").modal();
+            })
+
+          });
+
+          $('.bs-component [data-toggle="popover"]').popover();
+          $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+          $(".bs-component").hover(function () {
+            $(this).append($button);
+            $button.show();
+          }, function () {
+            $button.hide();
+          });
+
+          function cleanSource(html) {
+            var lines = html.split(/\n/);
+
+            lines.shift();
+            lines.splice(-1, 1);
+
+            var indentSize = lines[0].length - lines[0].trim().length,
+                re = new RegExp(" {" + indentSize + "}");
+
+            lines = lines.map(function (line) {
+              if (line.match(re)) {
+                line = line.substring(indentSize);
+              }
+
+              return line;
+            });
+
+            lines = lines.join("\n");
+
+            return lines;
+          }
+
+          $(".icons-material .icon").each(function () {
+            $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+          });
+
+        })();
+
+      </script>
+      <script src="{% static "js/ripples.min.js" %}"></script>
+      <script src="{% static "js/material.min.js" %}"></script>
+      <script src="{% static "js/snackbar.min.js" %}"></script>
+      <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+      <script>
+        $(function () {
+          $.material.init();
+          $(".shor").noUiSlider({
+            start: 40,
+            connect: "lower",
+            range: {
+              min: 0,
+              max: 100
+            }
+          });
+
+          $(".svert").noUiSlider({
+            orientation: "vertical",
+            start: 40,
+            connect: "lower",
+            range: {
+              min: 0,
+              max: 100
+            }
+          });
+        });
+      </script>
+    {% endblock %}
+
+</body>
+</html>

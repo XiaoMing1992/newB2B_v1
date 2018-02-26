@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>车栈网</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/validate.css" %}" rel="stylesheet">
+  <link href="{% static "css/index.css" %}" rel="stylesheet">
+  <link href="{% static "css/login-register.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="search-panel">
+    <div class="search-panel-blank"></div>
+    <div class="row">
+      <div class="col-lg-offset-3 col-lg-6">
+        <p class="error-tip" id="errorTip"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-offset-3 col-lg-6">
+        <img class="cloud-icon" src="{% static "img/cloud.png" %}">
+        <img class="car-icon" src="{% static "img/icon.png" %}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-offset-3 col-lg-6">
+        <div class="search-box">          
+          <form action="/searchFromFirstPage/" method="get" id="searchForm">
+            <select class="brand-selector required" id="brandSelector" name="brandSelector">
+              <option value="">请选择品牌</option>
+              {% for key, value in brand_list.items %}
+                <option value="{{ key }}">{{ value }}</option>
+              {% endfor %}
+            </select>
+            <select class="series-selector" id="seriesSelector" name="seriesSelector">
+              <option value="">请选择车型</option>
+              {% for key, value in car_series_list.items %}
+                <option value="{{ key }}">{{ value }}</option>
+              {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary btn-raised" id="search"><i class="material-icons">search</i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-offset-3 col-lg-4 publish-info">
+        <p class="publish-tip-text">今日共发布</p>
+        <p class="publish-tip-number">{{ info_total }}</p>
+        <p class="publish-tip-text">条车源信息,已有</p>
+        <p class="publish-tip-number">{{ matched_total }}</p>
+        <p class="publish-tip-text">位客户找到车源</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="advertisement-panel">
+    <div class="panel-blank"></div>
+    <div class="row">
+      <div class="col-lg-offset-2 col-lg-3">
+        <img src="{% static "img/files.png" %}">
+        <h3>海量资源 信息更新及时</h3>
+      </div>
+      <div class="col-lg-3">
+        <img src="{% static "img/heart.png" %}">
+        <h3>高质量用户 诚信保证</h3>
+      </div>
+      <div class="col-lg-3">
+        <img src="{% static "img/car.png" %}">
+        <h3>一站式交易 简单便捷</h3>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/jquery.validate.min.js" %}"></script>
+  <script src="{% static "js/login-register.js" %}"></script>
+{% endblock %}

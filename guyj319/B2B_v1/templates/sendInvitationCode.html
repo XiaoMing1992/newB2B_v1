@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>邀请好友</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/sendInvitationCode.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="title-panel">
+            <p class="title-text">邀请好友</p>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-offset-5 col-lg-4">
+              <p class="text-primary" style="font-weight: bold;">输入好友手机号码</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-offset-5 col-lg-4">
+              <p class="error-tip" id="errorText"></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-offset-4 col-lg-3" id="contactContainer">
+              <input type="text" class="form-control" id="contact" name="contact" placeholder="请输入手机号">
+            </div>
+            <div class="col-lg-1">
+              <button class="btn btn-raised btn-primary" id="addContact"><i class="material-icons">add</i></button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-4 col-lg-offset-5">
+              <p class="error-tip" id="errorTip"></p>
+              <button type="button" class="btn btn-raised btn-primary" id="sendInvitationCode">发送邀请码</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-blank"></div>
+    </div>
+  </div>
+
+  <div class="panel-blank"></div>
+{% endblock %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/sendInvitationCode.js" %}"></script>
+{% endblock %}

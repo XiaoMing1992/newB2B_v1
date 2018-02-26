@@ -1,0 +1,118 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+  {# 网站logo #}
+  <link rel="shortcut icon" href="{% static "img/logo.ico" %}" />
+
+  {% block title %}
+  {% endblock %}
+
+  {% block LibCss %}
+  {# AmazeUI Css 库文件 #}
+      <link rel="stylesheet" href="{% static "amazeui/css/amazeui.min.css" %}"/>
+      <link rel="stylesheet" href="{% static "amazeui/css/admin.css" %}">
+  {% endblock %}
+
+</head>
+<body>
+  <!--[if lte IE 9]>
+  <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，车栈网后台管理系统　暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+  <![endif]-->
+
+  <header class="am-topbar am-topbar-inverse admin-header">
+    <div class="am-topbar-brand">
+      <a href="/"><img src="{% static "img/LOGO_64.png" %}"> 后台管理系统</a>
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+    data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">baner</span> <span class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+      <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+        <li><a href="javascript:;" id="logout">退出登陆</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="am-cf admin-main">
+    <!-- sidebar start -->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+      <div class="am-offcanvas-bar admin-offcanvas-bar">
+        <ul class="am-list admin-sidebar-list">
+          <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li>
+          <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 会员管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+              <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 全部会员<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+              <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 会员审核</a></li>
+              <li>
+                <a href="admin-gallery.html">
+                  <span class="am-icon-th"></span>
+                  黑名单
+                  <span class="am-badge am-badge-secondary am-margin-right am-fr">{{ notice.blacklist_total }}</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 内容管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+              <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 全部内容<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            </ul>
+          </li>
+          <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 系统管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+              <li><a href="admin-user.html" class="am-cf">账号设置</a></li>
+              <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 管理员设置</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="am-panel am-panel-default admin-sidebar-panel">
+          <div class="am-panel-bd">
+            <p><span class="am-icon-bookmark"></span> 公告</p>
+            <p>有<strong style="color: red;">{{ notice.new_user_total }}</strong>个新用户注册。快去看看吧！</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- sidebar end -->
+
+  </div>
+
+  <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+  <footer>
+    <hr>
+    <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+  </footer>
+
+  {% block LibJs %}
+    {# IE浏览器的兼容性设置 #}
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+    <![endif]-->
+    <script src="{% static "amazeui/js/jquery.min.js" %}"></script>
+    <script src="{% static "amazeui/js/amazeui.min.js" %}"></script>
+    <script src="{% static "amazeui/js/app.js" %}"></script>
+  {% endblock %}
+
+  {% block CustomJs %}
+    <script src="{% static "common/js/base.js" %}"></script>
+  {% endblock %}
+</body>
+</html>

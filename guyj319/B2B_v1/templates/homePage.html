@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>我的主页</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/homePage.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+    <div class="container">
+      <div class="card gradient">
+        <div class="business-card-blank"></div>
+        <div class="row">
+          <div class="col-lg-3">
+            <img src="{% static merchant_material.image_path %}" style="width:150px; height:100px; margin-left: 50px" alt="我的头像">
+
+          </div>
+          <div class="col-lg-6">
+            <h4 class="merchant-material">{{ merchant_material.company_name }}</h4>
+            <p class="merchant-material">{{ merchant_material.location }} | {{ merchant_material.merchant_type }}</p>
+            <p class="merchant-material">联系人:{{ merchant_material.contact_name }}</p>
+            <p class="merchant-material">电话:{{ merchant_material.phone_number }}</p>
+            <p class="merchant-material">简介：{{ merchant_material.introduction }}</p>
+          </div>
+          <div class="col-lg-3">
+            <div class="row">
+              <p class="collection-tip-number">{{ merchant_material.collected_number }}</p>
+              <p class="collection-tip-text">人收藏</p>
+            </div>
+            <div class="row">
+              <p class="collection-tip-number">{{ merchant_material.published_number }}</p>
+              <p class="collection-tip-text">个有效发布</p>
+            </div>
+            <div class="row">
+              {# {% url "completeMaterial" merchant_id %} #}
+              <a href="/completeMaterial/" class="btn btn-raiesed" style="background: #09c; color: white;">
+                <i class="material-icons">edit</i>编辑资料</a>
+            </div>
+          </div>
+        </div>
+        <div class="business-card-blank"></div>
+      </div>
+    </div>
+
+    <div class="panel-blank"></div>
+
+    <div class="container container-custom">
+      <ul class="nav nav-tabs tab-panel">
+        <li class=""><a href="#validPublish" data-toggle="tab" aria-expanded="false">有效发布<div class="ripple-container"></div></a></li>
+        <li class="active"><a href="#invalidPublish" data-toggle="tab" aria-expanded="true">过期发布<div class="ripple-container"></div></a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="validPublish">
+          {% for item in publish_info %}
+            <div class="card" id="publish-content-{{ item.collect_id }}">
+              <div class="row">
+                <div class="col-lg-1">
+                <!--出售标签-->
+                <img src="{% static "img/bookmark_orange.png" %}" class="publish-icon" alt="快来买我!快来买我!">
+                </div>
+                <div class="col-lg-9">
+                  <ul>
+                    <li><h4>{{ item.series_detail }}</h4></li>
+                    <li><p class="update-time">
+                      {{ item.publish_time.year }}年
+                      {{ item.publish_time.month }}月
+                      {{ item.publish_time.day }}日
+                      发布 |
+                      {{ item.visit_amount }}次浏览</p></li>
+                    <li><p>{{ item.location }}</p></li>
+                    <li><p>{{ item.commodity_detail.color }}|
+                      {{ item.commodity_detail.type }}|
+                      {{ item.commodity_detail.style }}</p></li>
+                    <li><h3 class="price-tag">
+                      {{ item.price.market_price }}万|下
+                      {{ item.price.discount_amount }}万</h3></li>
+                  </ul>
+                </div>
+                <div class="col-lg-1">
+                  <div class="row">
+                    <a href="/publish/?operation_id={{ item.collect_id }}" class="btn btn-raised btn-primary" style="background: #39c; color: white; margin-top: 40px">修改信息</a>
+                  </div>
+                  <div class="row">
+                    <button type="button" class="btn btn-raised" id="delete-{{ item.collect_id }}"
+                            style="background: #222; color: white;">撤销发布</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="collection-blank"></div>
+          {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="invalidPublish">
+          {% for item in exceed_publish %}
+            <div class="card" id="exceed-content-{{ item.exceed_collect_id }}">
+              <div class="row">
+                <div class="col-lg-1">
+                  <!--过期标签-->
+                  <img src="{% static "img/bookmark_grey.png" %}" class="exceed-icon" alt="信息已过期!">
+                </div>
+                <div class="col-lg-9">
+                  <ul>
+                    <li><h4>{{ item.series_detail }}</h4></li>
+                    <li><p class="update-time">
+                      {{ item.publish_time.year }}年
+                      {{ item.publish_time.month }}月
+                      {{ item.publish_time.day }}日
+                      发布 |
+                      {{ item.visit_amount }}次浏览</p></li>
+                    <li><p>{{ item.location }}</p></li>
+                    <li><p>{{ item.commodity_detail.color }}|
+                      {{ item.commodity_detail.type }}|
+                      {{ item.commodity_detail.style }}</p></li>
+                    <li><h3 class="invalid">
+                      {{ item.price.market_price }}万|下
+                      {{ item.price.discount_amount }}万</h3></li>
+                  </ul>
+                </div>
+                <div class="col-lg-1">
+                  <div class="row">
+                    <a href="" class="btn btn-raised btn-primary" style="background: #39c; color: white; margin-top: 40px">重新发布</a>
+                  </div>
+                  <div class="row">
+                    <button type="button" class="btn btn-raised" id="exceed-delete-{{ item.exceed_collect_id }}"
+                            style="background: #222; color: white;">删除记录</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="collection-blank"></div>
+          {% endfor %}
+        </div>
+      </div>
+    <div class="page-blank"></div>
+    </div>
+
+    <div class="panel-blank"></div>
+{% endblock %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}
+
+{% block jsLibrary %}
+    <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/homePage.js" %}"></script>
+
+{% endblock %}

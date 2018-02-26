@@ -1,0 +1,80 @@
+{% extends "weixin/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>车源详情</title>
+{% endblock %}
+
+{% block content %}
+    <header id="header" class="mui-bar mui-bar-nav" style="background: #197; color: white;">
+        <a href="#" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+        <h1 class="mui-title" style="color: white;">车源详情</h1>
+    </header>
+    
+    <div class="mui-content">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media">
+                <a href="javascript:;">
+                    <img class="mui-media-object mui-pull-left" src="{% static "weixin/image/user.png" %}">
+                    <div class="mui-media-body">
+                        <p style="font-size: 1em; color: black;">广州宏兴汽车销售有限公司</p>
+                        <p style="font-size: 1em; color: black;">广州|4s店</p>
+                        <p>联系人：陈浩南</p>
+                        <p>电话：13450378322</p>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+        
+        <br />
+        
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">车型：</p>
+                <p style="font-size: 1em; color: black; float: right;">宝马3系 2015款 混合动力</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">车辆类型：</p>
+                <p style="font-size: 1em; color: #0062CC; float: right;">中规 加装车</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">颜色：</p>
+                <p style="font-size: 1em; color: black; float: right;">墨尔本红</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">货期：</p>
+                <p style="font-size: 1em; color: black; float: right;">现货</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">支付方式：</p>
+                <p style="font-size: 1em; color: black; float: right;">定金</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">销售区域：</p>
+                <p style="font-size: 1em; color: black; float: right;">全国</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">物流方式：</p>
+                <p style="font-size: 1em; color: black; float: right;">委托物流</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">报价：</p>
+                <p style="font-size: 1em; color: orangered; float: right;">56万|下1.2万</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">提货时间：</p>
+                <p style="font-size: 1em; color: black; float: right;">02/19/2016</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="display: inline; font-size: 1em; color: black;">过期时间：</p>
+                <p style="font-size: 1em; color: black; float: right;">04/22/2016</p>
+            </li>
+            <li class="mui-table-view-cell">
+                <p style="font-size: 1em; color: black;">备注说明：</p>
+                <p style="font-size: 1em; color: #0062CC;">配置：无烟煤杨柳木内饰，后娱预留，P01包，全景。</p>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+
+/*面板间距*/
+.panel-blank{ margin-bottom: 50px; }
+
+.title-panel{ 
+  background: #39aea8;
+  min-height: 40px;
+}
+
+.title-text{
+  margin-left: 50px;
+  padding-top: 10px;
+  color: white;
+}
+
+.page-blank{ margin-bottom: 250px; }
+
+.error-tip{ color: red; }
+
+#invitationCodeTip{ color: red; }

@@ -1,0 +1,73 @@
+
+.container-custom{ min-height: 450px; }
+
+.title-panel{
+  min-height: 40px;
+  background: #39aea8;
+}
+
+.title-text{
+  margin-left: -90px;
+  padding-top: 10px;
+  color: white;
+}
+
+/*车源详情*/
+.update-time{ color: #aaa; }
+
+table{ margin-left: 30px; }
+
+.collection-blank{ margin-bottom: 20px; }
+
+.price-tag{
+  margin-top: 50px;
+  color: #f60;
+}
+
+/*商家详情介绍*/
+.merchant-material{ text-align: center; }
+
+.page-blank{ margin-bottom: 250px; }
+
+/*时间轴*/
+.date{
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: #096;
+}
+
+.moment{
+  margin-bottom: 100px;
+  margin-right: -10px;
+  text-align: right;
+  font-size: 20px;
+}
+
+.action-tip{ margin-top: 10px; }
+
+.view-detail{
+  text-decoration: underline;
+  color: #39c;
+}
+
+.visited-text{ color: #39c; }
+
+.node-icon{ color: #f66; }
+
+.time-line{
+  border-right-style: solid;
+  border-width: 2px;
+  border-color: #aaa;
+}
+
+ul{ list-style-type: none; }
+
+.item-list-blank{ margin-top: 55px; }
+
+.first-item-blank{
+  margin-bottom: 55px;
+}
+
+/*面板间距*/
+.panel-blank{ margin-bottom: 50px; }

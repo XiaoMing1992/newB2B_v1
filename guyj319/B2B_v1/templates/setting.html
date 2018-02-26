@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>个人设置</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+    <link href="{% static "css/setting.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+  <div class="container">
+      <div class="card" style="padding-right: 15px; padding-left: 15px;">
+        <div class="row title-panel">
+          <div class="col-lg-offset-1 col-lg-3">
+            <h4 class="title-text">设置</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-panel-blank"></div>
+
+      <div class="row">
+        <div class="col-lg-2">
+          <ul id="settingPanel">
+            <li class="active" id="changePassword"><a id="changePasswordLink" href="#passwordSetting" data-toggle="tab" aria-expanded="false"><i class="material-icons">person</i>修改密码</a></li>
+            <li id="changePhoneNumber"><a id="changePhoneNumberLink" href="#mobileSetting" data-toggle="tab" aria-expanded="true"><i class="material-icons">lock</i>修改绑定手机号</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-offset-1 col-lg-9">
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="passwordSetting">
+              <div class="my-card setting-panel">
+                <div class="row" id="passwordSettingPanel">
+                  <form class="form-horizontal" id="passwordSettingForm">
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-2">
+                        <p class="setting-text">旧密码:</p>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="password" class="form-control" id="oldPassword">
+                        <p class="old-password-error"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-2">
+                        <p class="setting-text">新密码:</p>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="password" class="form-control" id="newPassword">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-2">
+                        <p class="setting-text">确认新密码:</p>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="password" class="form-control" id="againPassword">
+                        <p class="verify-password-error"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-offset-5 col-lg-2">
+                        <a href="#" class="btn btn-primary btn-raised" id="submitNewPassword">确认</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="panel-blank"></div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="mobileSetting">
+              <div class="my-card setting-panel">
+                <div class="row" id="phoneNumberSettingPanel">
+                  <form class="form-horizontal" id="phoneNumberSettingForm">
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-2">
+                        <p class="setting-text">旧手机号:</p>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="text" class="form-control" id="oldPhoneNumber">
+                        <p class="old-mobile-error"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-2">
+                        <p class="setting-text">输入密码:</p>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="password" class="form-control" id="currentPassword">
+                        <p class="current-password-error"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-2">
+                        <p class="setting-text">新手机号:</p>
+                      </div>
+                      <div class="col-lg-5">
+                        <input type="text" class="form-control" id="newPhoneNumber">
+                        <p class="error" id="newPhoneNumberError"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-2">
+                        <p class="setting-text">验证码:</p>
+                      </div>
+                      <div class="col-lg-2">
+                        <input type="text" class="form-control" id="verifyCode">
+                        <p class="error" id="verifyCodeError"></p>
+                      </div>
+                      <div class="col-lg-1">
+                        <a href="#" class="btn btn-info btn-raised" id="getVerifyCode">获取手机验证码</a>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-offset-5 col-lg-2">
+                        <a href="#" class="btn btn-primary btn-raised" id="submitNewPhoneNumber">确认</a>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="panel-blank"></div>
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/setting.js" %}"></script>
+{% endblock %}
+
+{% block footer %}
+    {% include "footer.html" %}
+{% endblock %}

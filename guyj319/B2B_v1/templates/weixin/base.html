@@ -1,0 +1,31 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    {% block title %}
+      <title>用户绑定</title>
+    {% endblock %}
+
+    {% block muiCss %}
+      <link href="{% static "weixin/css/mui.min.css" %}" rel="stylesheet"/>
+    {% endblock %}
+
+    {% block customCss %}
+    {% endblock %}
+</head>
+<body>
+
+  {% block content %}
+  {% endblock %}
+
+  {% block jsLib %}
+    <script src="{% static "weixin/js/mui.min.js" %}"></script>
+  {% endblock %}
+
+  {% block customJs %}
+  {% endblock %}
+  
+</body>
+</html>

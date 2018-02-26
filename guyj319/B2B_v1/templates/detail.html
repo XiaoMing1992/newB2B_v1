@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>车源详情</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/detail.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+  <div class="container">
+    <div class="row" id="merchant-{{ merchant_material.id }}">
+      <div class="col-lg-3 my-card">
+        <div>
+          <img src="{% static merchant_material.image_path %}" style="width:150px; height:100px; margin-left: 50px" alt="我的头像">
+        </div>
+        <div>
+          <h4 class="merchant-material">{{ merchant_material.company_name }}</h4>
+          <p class="merchant-material">{{ merchant_material.location }} | {{ merchant_material.merchant_type }}</p>
+          {% for each in merchant_material.contact %}
+          <p class="merchant-material">联系人:{{ each.contact_name }}</p>
+          <p class="merchant-material">电话:{{ each.phone_number }}</p>
+          {% endfor %}
+          <button type="button" class="btn btn-raiesed"
+          {% if is_merchant_collected %}
+            style="background-color: #aaa;" 
+          {% endif %}
+           id="collectMerchant" data-content="已成功收藏该商家!" data-toggle="snackbar" data-timeout="0"><i class="material-icons">star</i>
+          {% if is_merchant_collected %}
+            商家已收藏
+          {% else %}
+            收藏商家
+          {% endif %}
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-8 my-card" style="margin-left: 30px;">
+        <div class="row" id="detail-{{ source_detail_list.id }}">
+          <div class="col-lg-offset-9 col-lg-2">
+            <button type="button" class="btn btn-raiesed"
+            {% if is_info_collected %}
+              style="background: #aaa;" 
+            {% endif %}
+            id="collectInfo" data-content="已成功收藏该信息!" data-toggle="snackbar" data-timeout="0"><i class="material-icons">star</i>
+            {% if is_info_collected %}
+              信息已收藏
+            {% else %}
+              收藏信息
+            {% endif %}
+            </button>
+          </div>
+        </div>
+        <table class="content-row">
+            <tr>
+              <td class="tag">
+                <p>车型：</p>
+              </td>
+              <td>
+                <h3 class="car-type">{{ source_detail_list.series_detail.brand }} {{ source_detail_list.series_detail.displacement }} {{ source_detail_list.series_detail.other }}</h3>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>车辆类型：</p>
+              </td>
+              <td>
+                <p class="emphasize-text">{{ source_detail_list.carType }}</p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>颜色：</p>
+              </td>
+              <td>
+                <p class="contentText">{{ source_detail_list.color }}</p>
+                <div class="color-sample" style="background-color:{{ source_detail_list.color_hex }}"></div>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>货期：</p>
+              </td>
+              <td>
+                <p class="contentText">{{ source_detail_list.payType }}</p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>支付方式：</p>
+              </td>
+              <td>
+                <p class="contentText">{{ source_detail_list.payType }}</p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>销售区域：</p>
+              </td>
+              <td>
+                <p class="emphasize-text">{{ source_detail_list.saleRegion }}</p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>物流方式：</p>
+              </td>
+              <td>
+                <p class="contentText">{{ source_detail_list.logisticsType }}</p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>报价：</p>
+              </td>
+              <td>
+                <p class="price">{{ source_detail_list.price.highest_price }}万|下{{ source_detail_list.price.highest_price }}万</p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>提货时间：</p>
+              </td>
+              <td>
+                <p class="contentText">{{ source_detail_list.delivery_date.year }}年{{ source_detail_list.delivery_date.month }}月{{ source_detail_list.delivery_date.day }}日</p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>过期时间：</p>
+              </td>
+              <td>
+                <p class="contentText">{{ source_detail_list.out_date.year }}年{{ source_detail_list.out_date.month }}月{{ source_detail_list.out_date.day }}日</p>
+              </td>
+            </tr>
+            <tr class="content-row">
+              <td class="tag">
+                <p>联系人：</p>
+              </td>
+              <td>
+                <p class="contentText">{{ source_detail_list.contact.name }} {{ source_detail_list.contact.phone_number }}</p>
+              </td>
+            </tr>
+            <tr id="content-row">
+              <td class="tag">
+                <p>备注说明：</p>
+              </td>
+              <td>
+                <p class="emphasize-text">{{ source_detail_list.remark }}</p>
+              </td>
+            </tr>
+          </table>
+        <div class="panel-blank"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-blank"></div>
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/jquery.validate.min.js" %}"></script>
+  <script src="{% static "js/detail.js" %}"></script>
+{% endblock %}

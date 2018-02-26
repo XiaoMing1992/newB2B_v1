@@ -1,0 +1,63 @@
+/*对话框样式*/
+.title-bar{
+  color: white;
+  background: #39aea8;
+}
+
+.content-tag{ font-weight: bold; }
+
+#selected-condition-panel li{ display: inline; }
+
+.selected-condition{
+  margin-left: 10px;
+  display: inline;
+  background: orangered;
+  color: white;
+}
+
+.search-tag{
+	color: #aaa;
+	margin-left: 10px;
+  text-align: left;
+}
+
+.lowest-price{ max-width: 80px; }
+
+.highest-price{ max-width: 80px; }
+
+.search-condition{ display: inline; }
+
+a{
+  text-decoration: none;
+  color: #0a0a0a;
+}
+
+a:hover { text-decoration: none; }
+
+a:visited{ text-decoration: none; }
+
+.date-picker{ margin-left: -100px; }
+
+#region li{ margin-right: 10px; }
+
+#region{ margin-left: -30px; }
+
+#color li{ margin-right: 10px; }
+
+#color{ margin-left: -30px; }
+
+#payment li{ margin-right: 10px; }
+
+#payment{ margin-left: -30px; }
+
+#car-type li{ margin-right: 10px; }
+
+#car-type{ margin-left: -30px; }
+
+#ship-date li{ margin-right: 10px; }
+
+#ship-date{ margin-left: -30px; }
+
+#logistics li{ margin-right: 10px; }
+
+#logistics{ margin-left: -30px; }

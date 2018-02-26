@@ -1,0 +1,58 @@
+
+.container-custom{ min-height: 450px; }
+
+.tab-panel{
+  margin-bottom: 15px;
+  background: #39aea8;
+}
+
+/*商家名片*/
+.collection-tip-number{
+  display: inline;
+  font-size: 30px;
+  color: orange;
+}
+
+.collection-tip-text{
+  display: inline;
+  font-size: 20px;
+  color: white;
+}
+
+.gradient{
+  background: linear-gradient(#222, #666, #222);
+}
+
+.business-card-blank{ margin-bottom: 30px; }
+
+/*车源详情*/
+.update-time{ color: #aaa; }
+
+table{ margin-left: 30px; }
+
+.collection-blank{ margin-bottom: 20px; }
+
+.price-tag{ color: #f60; }
+
+.publish-icon{ margin-left: 30px; }
+
+.exceed-icon{ margin-left: 30px; }
+
+/*商家详情介绍*/
+.merchant-material{
+  text-align: left;
+  color: white;
+}
+
+.invalid{ color: #ccc; }
+
+table{ margin-left: 30px; }
+
+ul{ list-style: none; }
+
+.page-blank{ margin-bottom: 250px; }
+
+.card{ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+
+/*面板间距*/
+.panel-blank{ margin-bottom: 50px; }

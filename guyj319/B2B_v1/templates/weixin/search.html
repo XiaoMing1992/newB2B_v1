@@ -1,0 +1,36 @@
+{% extends "weixin/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>搜索车源</title>
+{% endblock %}
+
+{% block content %}
+  <header id="header" class="mui-bar mui-bar-nav" style="background: #197; color: white;">
+    <a href="#" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+    <h1 class="mui-title" style="color: white;">搜索</h1>
+  </header>
+  
+  <div class="mui-content">
+    <div class="mui-content-padded">
+      <select class="mui-btn mui-btn-block">
+        <option value="请选择品牌">请选择品牌</option>
+        <option value="宝马">宝马</option>
+        <option value="大众">大众</option>
+        <option value="劳斯莱斯">劳斯莱斯</option>
+        <option value="特斯拉">特斯拉</option>
+      </select>
+      <select class="mui-btn mui-btn-block">
+        <option value="请选择车系">请选择车系</option>
+        <option value="车系1">车系1</option>
+        <option value="车系2">车系2</option>
+        <option value="车系3">车系3</option>
+        <option value="车系4">车系4</option>
+      </select>
+      <button type="button" class="mui-btn mui-btn-success" style="margin: 0 auto; width: 100%;">
+        <span class="mui-icon mui-icon-search"></span>
+      </button>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "admin/common/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>账号设置</title>
+{% endblock %}
+
+{% block body%}
+  {% include "admin/setting/account_setting_panel.html" %}
+{% endblock%}
+
+{% block customJs %}
+  <script src="{% static "admin/setting/js/account.js" %}"></script>
+{% endblock %}

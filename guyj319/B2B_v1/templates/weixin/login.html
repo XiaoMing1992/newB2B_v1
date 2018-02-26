@@ -1,0 +1,58 @@
+{% extends "weixin/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>用户绑定</title>
+{% endblock %}
+
+{% block content %}
+	<div class="mui-content-padded">
+		<form class="mui-input-group" style="margin-top: 20px;">
+			<div class="mui-input-row">
+				<label>用户名</label>
+				<input type="text" id="userName">
+			</div>
+			<div class="mui-input-row">
+				<label>密码</label>
+				<input type="password" id="password">
+			</div>
+			<div class="mui-button-row">
+				<button class="mui-btn mui-btn-primary" type="button" style="min-width: 200px;" id="login-button" onclick="login()">登录</button>&nbsp;&nbsp;
+			</div>
+		</form>
+		<a href="/personalCenter/" class="mui-btn mui-btn-primary" style="min-width: 100%;">测试->跳转到个人中心</a>
+	</div>
+{% endblock %}
+
+{% block customJs %}
+	<script src="{% static "weixin/js/jquery-1.11.0.js"%}"></script>
+	<script>
+		var loginPostUrl = "http://www.panxl.cn/loginPost";
+		
+		
+		function login(){
+			
+			var userName = document.getElementById("userName").value;
+			var password = document.getElementById("password").value;			
+
+			$.ajax({
+				type:"post",
+				url: loginPostUrl,
+				async:true,
+				data: {
+					userName: userName, 
+					password: password
+				},
+				success: function(data) {
+					if (data === "0"){
+						mui.alert('用户名或密码错误', '登录提示', function() {});
+					}
+				},
+				error: function(){
+					mui.alert('登录失败，请重新尝试', '登录提示', function() {});
+				}
+			});
+		}
+	</script>
+{% endblock %}

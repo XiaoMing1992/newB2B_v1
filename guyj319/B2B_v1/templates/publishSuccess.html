@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>发布成功</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/publishSourceSuccess.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="col-lg-12">
+          <form class="form-horizontal">
+            <fieldset>
+              <div class="title-panel">
+                <p class="title-text">发布车源</p>
+              </div>
+              <div class="form-group">
+                <div class="col-lg-offset-5 col-lg-4">
+                  <p class="text-primary" style="font-weight: bold; margin-left:-20px;">您的车源信息已成功发布!</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-lg-4 col-lg-offset-5">
+                  <button type="submit" class="btn btn-raised btn-danger">随便逛逛</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="page-blank"></div>
+    </div>
+  </div>
+
+  <div class="panel-blank"></div>
+{% endblock %}

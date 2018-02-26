@@ -1,0 +1,47 @@
+
+.container-custom{ min-height: 450px; }
+
+.card{ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+
+.title-panel{
+  min-height: 40px;
+  background: #39aea8;
+}
+
+.title-text{
+  margin-left: -90px;
+  padding-top: 10px;
+  color: white;
+}
+
+.date{ margin-left: 15px; }
+
+table{ margin-left: 30px; }
+
+ul{
+  list-style-type: none;
+  padding: 0;
+}
+
+.edit{}
+
+.delete{}
+
+/*面板间距*/
+.panel-blank{ margin-bottom: 50px; }
+
+.page-blank{ margin-bottom: 250px; }
+
+.title-panel-blank{ margin-bottom: 30px;}
+
+.item-list-blank{ margin-top: 25px; }
+
+.item-title-panel{
+  max-height: 50px;
+  background: #b5b5b5;
+  color: white;
+}
+
+.edit{ margin-top: -2px; }
+
+.delete{ margin-top: -2px; }

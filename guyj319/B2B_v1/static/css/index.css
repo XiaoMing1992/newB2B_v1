@@ -1,0 +1,62 @@
+
+.search-panel{
+  height: 500px;
+  margin-top: -20px;
+  background: #39aea8;
+}
+
+.btn{ border-radius: 0px; }
+
+.error-tip{ color: red; }
+
+.car-icon{ margin-left: 180px; margin-top: -130px;}
+
+.cloud-icon{ margin-bottom: -90px; }
+
+.search-box{
+  width: 540px;
+  height: 60px;
+  margin-left: 50px;
+  background: #202026;
+}
+
+.publish-info{ padding-left: 65px; }
+
+.search-button{ background: #39aea8; }
+
+.brand-selector{
+  margin-left: 18px;
+  width: 150px;
+  height: 40px;
+}
+
+.series-selector{
+  margin-left: 10px;
+  width: 250px;
+  height: 40px;
+}
+
+.advertisement-panel{
+  margin: 0;
+  height: 500px;
+  width: 100%;
+  background: white;
+}
+
+.advertisement-image-size{ max-width: 300px;}
+
+.panel-blank{ height: 100px; }
+
+.search-panel-blank{ height: 100px; }
+
+.publish-tip-text{
+  display: inline;
+  font-size: 13px;
+  color: white;
+}
+
+.publish-tip-number{
+  display: inline;
+  font-size: 19px;
+  color: #228;
+}

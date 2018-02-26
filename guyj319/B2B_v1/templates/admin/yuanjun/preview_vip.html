@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>会员审核</title>
+</head>
+
+<body>
+   <div class="well">
+      <p>会员名称： {{ vip_info.company_name }}</p>
+      <p>企业类型： {{ vip_info.type }}</p>
+      <p>  联系人:
+              {% for people in vip_info.peoples %}
+                  {{ people.name }}     {{ people.phone }}
+              {% endfor %}
+      </p>
+      <p>选择地区:  {{ vip_info.region }}</p>
+      <p>主营品牌:  {{ vip_info.user_trademark }}</p>
+      {% load staticfiles %}
+       <p>
+           营业执照：<img src="{% static vip_info.license_image_path %}" style="width:150px; height: 150px; margin-left: 50px" alt="营业执照">
+       </p>
+       <p>
+           身份证：<img src="{% static vip_info.id_card_image_path %}" style="width:150px; height: 150px; margin-left: 50px" alt="身份证">
+       </p>
+       <p>通过状态：
+           {% if vip_info.state == 0 %}
+               不通过
+           {% else %}
+               通过
+           {% endif %}
+       </p>
+       <form class="form-horizontal" method = 'post'enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="form-actions">
+           审核: <input type="text" id="check" name="check"/>
+        </p>
+        <p class="form-actions">
+            <input type="submit" id="submit" name="submit" value="提交"/>
+        </p>
+       </form>
+        <p><a href="/adminHome/">主页</a></p>
+        <p><a href="/adminLogout/">退出</a></p>
+   </div>
+<br>
+</body>
+</html>

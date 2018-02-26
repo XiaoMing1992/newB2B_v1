@@ -1,0 +1,484 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>我的需求</title>
+{% endblock %}
+
+{% load staticfiles %}
+
+{% block css %}
+  <link href="{% static "css/lib/jquery.datetimepicker.css" %}" rel="stylesheet">
+  <link href="{% static "css/myDemand.css" %}" rel="stylesheet">
+  <link href="{% static "css/demand-setting-dialog.css" %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+  <div class="panel-blank"></div>
+
+  <div class="container container-custom">
+    <div class="card" style="padding-right: 15px; padding-left: 15px;">
+      <div class="row title-panel">
+        <div class="col-lg-offset-1 col-lg-3">
+          <h4 class="title-text">我的需求</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="title-panel-blank"></div>
+
+    <ul>
+      {% for item in demand_list %}
+        <li class="item-list-blank" id="demand-{{ item.demand_id }}">
+          <div class="card">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="item-title-panel">
+                    <div style="height: 5px;"></div>
+                    <div class="row">
+                      <div class="col-lg-3">
+                        <h4 class="date">{{ item.save_date.year }}年{{ item.save_date.month }}月{{ item.save_date.day }}日保存</h4>
+                      </div>
+                      <div class="col-lg-6">
+                        <h4>
+                          {% if item.expiry_date.year == '0' %}
+                            永久有效
+                          {% else %}
+                            {{ item.expiry_date.year }}年{{ item.expiry_date.month }}月{{ item.expiry_date.day }}日前有效
+                          {% endif %}
+                        </h4>
+                      </div>
+                      <div class="col-lg-3">
+                        <a class="btn btn raised edit" id="edit-{{ item.demand_id }}"><i class="material-icons">edit</i></a>
+                        <a class="btn btn raised delete" id="delete-{{ item.demand_id }}"><i class="material-icons">delete</i></a>
+                      </div>
+                    </div>
+                  </div>
+                <div class="form-group">
+                    <div class="row">
+                      <div class="col-lg-10">
+                        <table class="search-table">
+                          <tr>
+
+                            {% if item.brand.text != '' %}
+                              <td><h4 class="search-condition" id="brand-{{ item.demand_id }}">{{ item.brand.text }}</h4></td>
+                              {% if item.brand.is_end == "false" %}
+                                <td><h4>+</h4></td>
+                              {% endif %}
+                            {% endif %}
+
+                            {% if item.series.text != '' %}
+                              <td><h4 class="search-condition" id="series-{{ item.demand_id }}">{{ item.series.text }}</h4></td>
+                              {% if item.series.is_end == "false" %}
+                                <td><h4>+</h4></td>
+                              {% endif %}
+                            {% endif %}
+
+                            {% if item.region.text != '' %}
+                              <td><h4 class="search-condition" id="region-{{ item.demand_id }}">{{ item.region.text }}</h4></td>
+                              {% if item.region.is_end == "false" %}
+                                <td><h4>+</h4></td>
+                              {% endif %}
+                            {% endif %}
+
+                            {% if item.type.text != '' %}
+                              <td><h4 class="search-condition" id="type-{{ item.demand_id }}">{{ item.type.text }}</h4></td>
+                              {% if item.type.is_end == "false" %}
+                                <td><h4>+</h4></td>
+                              {% endif %}
+                            {% endif %}
+
+                            {% if item.color.text != '' %}
+                              <td><h4 class="search-condition" id="color-{{ item.demand_id }}">{{ item.color.text }}</h4></td>
+                              {% if item.color.is_end == "false" %}
+                                <td><h4>+</h4></td>
+                              {% endif %}
+                            {% endif %}
+
+                            {% if item.payment.text != '' %}
+                              <td><h4 class="search-condition" id="payment-{{ item.demand_id }}">{{ item.payment.text }}</h4></td>
+                              {% if item.payment.is_end == "false" %}
+                                <td><h4>+</h4></td>
+                              {% endif %}
+                            {% endif %}
+
+                            {% if item.car_type.text != '' %}
+                              <td><h4 class="search-condition" id="car-type-{{ item.demand_id }}">{{ item.car_type.text }}</h4></td>
+                              {% if item.car_type.is_end == "false" %}
+                                <td><h4>+</h4></td>
+                              {% endif %}
+                            {% endif %}
+
+                            {% if item.logistics.text != '' %}
+                              <td><h4 class="search-condition" id="logistics-{{ item.demand_id }}">{{ item.logistics.text }}</h4></td>
+                            {% endif %}
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="col-lg-2">
+                        <a href="/searchFromMyDemand/?operation_id={{ item.demand_id }}" class="btn btn-raised" style="background: #f60; color: white;">开始搜索</a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+  </div>
+
+  <div class="panel-blank"></div>
+
+  <!-- 需求设置对话框 -->
+  <div class="modal" id="demandSettingDialog" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header title-bar">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">修改我的需求</h4>
+          <div style="height: 20px;"></div>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal">
+            <fieldset>
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-2">
+                    <p class="content-tag">已选关键词</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-10">
+                    <ul id="selected-condition-panel">
+                      <li>
+                        <p class="selected-condition"
+                           id="selected-condition-brand">
+                        </p>
+                      </li>
+                      <li>
+                        <p class="selected-condition"
+                           id="selected-condition-series">
+                        </p>
+                      </li>
+                      <li>
+                        <p class="selected-condition"
+                           id="selected-condition-region">
+                        </p>
+                      </li>
+                      <li>
+                        <p class="selected-condition"
+                           id="selected-condition-0">
+                        </p>
+                      </li>
+                      <li>
+                        <p class="selected-condition"
+                           id="selected-condition-1">
+                        </p>
+                      </li>
+                      <li>
+                        <p class="selected-condition"
+                           id="selected-condition-2">
+                        </p>
+                      </li>
+                      <li>
+                        <p class="selected-condition"
+                           id="selected-condition-3">
+                        </p>
+                      </li>
+                      <li>
+                        <p class="selected-condition"
+                           id="selected-condition-4">
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div style="height: 10px;"></div>
+                <div class="row">
+                  <div class="col-lg-2">
+                    <p class="content-tag">修改关键词</p>
+                  </div>
+                </div>                
+                <div class="row">
+                  <div class="col-lg-1">
+                    <p class="search-tag">车型:</p>
+                  </div>
+                  <div class="col-lg-9">
+                    <ul>
+                      <li class="search-condition">
+                        <select class="brand-selector required" id="brandSelector" name="brandSelector">
+                          <option value="">请选择品牌</option>
+                          {% for item in brand_list %}
+                            <option value="{{ forloop.counter }}">{{ item }}</option>
+                          {% endfor %}
+                        </select>
+                      </li>
+                      <li class="search-condition">
+                        <select class="series-selector" id="seriesSelector" name="seriesSelector">
+                          <option value="">请选择车系</option>
+                          {% for item in car_series_list %}
+                            <option value="{{ forloop.counter }}">{{ item }}</option>
+                          {% endfor %}
+                        </select>
+                      </li>
+                    </ul>
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <p class="search-tag">销售区域:</p>
+                  </div>
+                  <div class="col-lg-9">
+                    <ul id="region">
+                      <li class="search-condition">
+                        <a href="#" id="region-option-1">全国</a>
+                      </li>
+                      <li class="search-condition">
+                        <select id="region-option-2">
+                          <option value="0">请选择省份</option>
+                          <option value="1">广东省</option>
+                          <option value="2">湖南省</option>
+                          <option value="3">福建省</option>
+                          <option value="4">海南省</option>
+                        </select>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <p class="search-tag">货期:</p>
+                  </div>
+                  <div class="col-lg-9">
+                    <ul id="ship-date">
+                      <li class="search-condition" id="ship-date-option-0">
+                        <a href="#">不限</a>
+                      </li>
+                      <li class="search-condition" id="ship-date-option-1">
+                        <a href="#">现货</a>
+                      </li>
+                      <li class="search-condition" id="ship-date-option-2">
+                        <a href="#">期货</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <p class="search-tag">颜色:</p>
+                  </div>
+                  <div class="col-lg-9">
+                    <ul id="color">
+                      <li class="search-condition" id="color-option-0">
+                        <a href="#">不限</a>
+                      </li>
+                      <li class="search-condition" id="color-option-1">
+                        <a href="#">珠光白</a>
+                      </li>
+                      <li class="search-condition" id="color-option-2">
+                        <a href="#">土豪金</a>
+                      </li>
+                      <li class="search-condition" id="color-option-3">
+                        <a href="#">钻灰</a>
+                      </li>
+                      <li class="search-condition" id="color-option-4">
+                        <a href="#">金灰</a>
+                      </li>
+                      <li class="search-condition" id="color-option-5">
+                        <a href="#">银白</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <p class="search-tag">付款方式:</p>
+                  </div>
+                  <div class="col-lg-9">
+                    <ul id="payment">
+                      <li class="search-condition" id="payment-option-0">
+                        <a href="#">不限</a>
+                      </li>
+                      <li class="search-condition" id="payment-option-1">
+                        <a href="#">定金</a>
+                      </li>
+                      <li class="search-condition" id="payment-option-2">
+                        <a href="#">全款</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <p class="search-tag">车辆类型:</p>
+                  </div>
+                  <div class="col-lg-9">
+                    <ul id="car-type">
+                      <li class="search-condition" id="car-type-option-0">
+                        <a href="#">不限</a>
+                      </li>
+                      <li class="search-condition" id="car-type-option-1">
+                        <a href="#">中规标配</a>
+                      </li>
+                      <li class="search-condition" id="car-type-option-2">
+                        <a href="#">中规加装</a>
+                      </li>
+                      <li class="search-condition" id="car-type-option-3">
+                        <a href="#">平行车</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <p class="search-tag">物流方式:</p>
+                  </div>
+                  <div class="col-lg-9">
+                    <ul id="logistics">
+                      <li class="search-condition" id="logistics-option-0">
+                        <a href="#">不限</a>
+                      </li>
+                      <li class="search-condition" id="logistics-option-1">
+                        <a href="#">自选物流</a>
+                      </li>
+                      <li class="search-condition" id="logistics-option-2">
+                        <a href="#">委托物流</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div style="height: 20px;"></div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <p class="content-tag">有效日期至</p>
+                  </div>
+                  <div class="col-lg-6">
+                    <input type="text" class="date-picker" id="exceedDate" placeholder="选择日期"/>
+                  </div>
+                </div>
+              </div>              
+              <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-offset-5 col-lg-3">
+                      <button type="button" class="btn btn-raised btn-warning" id="save-demand" style="background: #f66">保存</button>
+                    </div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-5">
+              <!--TODO:-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block jsLibrary %}
+  <script src="{% static "js/jquery-1.10.2.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+  <script>
+    (function () {
+
+      var $button = $("<div id='source-button' class='btn btn-primary btn-xs'>&lt; &gt;</div>").click(function () {
+        var index = $('.bs-component').index($(this).parent());
+        $.get(window.location.href, function (data) {
+          var html = $(data).find('.bs-component').eq(index).html();
+          html = cleanSource(html);
+          $("#source-modal pre").text(html);
+          $("#source-modal").modal();
+        })
+
+      });
+
+      $('.bs-component [data-toggle="popover"]').popover();
+      $('.bs-component [data-toggle="tooltip"]').tooltip();
+
+      $(".bs-component").hover(function () {
+        $(this).append($button);
+        $button.show();
+      }, function () {
+        $button.hide();
+      });
+
+      function cleanSource(html) {
+        var lines = html.split(/\n/);
+
+        lines.shift();
+        lines.splice(-1, 1);
+
+        var indentSize = lines[0].length - lines[0].trim().length,
+            re = new RegExp(" {" + indentSize + "}");
+
+        lines = lines.map(function (line) {
+          if (line.match(re)) {
+            line = line.substring(indentSize);
+          }
+
+          return line;
+        });
+
+        lines = lines.join("\n");
+
+        return lines;
+      }
+
+      $(".icons-material .icon").each(function () {
+        $(this).after("<br><br><code>" + $(this).attr("class").replace("icon ", "") + "</code>");
+      });
+
+    })();
+
+  </script>
+  <script src="{% static "js/ripples.min.js" %}"></script>
+  <script src="{% static "js/material.min.js" %}"></script>
+  <script src="{% static "js/snackbar.min.js" %}"></script>
+  <script src="{% static "js/jquery.nouislider.min.js" %}"></script>
+  <script>
+    $(function () {
+      $.material.init();
+      $(".shor").noUiSlider({
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+
+      $(".svert").noUiSlider({
+        orientation: "vertical",
+        start: 40,
+        connect: "lower",
+        range: {
+          min: 0,
+          max: 100
+        }
+      });
+    });
+  </script>
+  <script src="{% static "js/jquery.datetimepicker.full.min.js" %}"></script>
+  <script>
+    $('#exceedDate').datetimepicker({
+      yearOffset:0,
+      lang:'ch',
+      timepicker:false,
+      format:'d/m/Y',
+      formatDate:'Y/m/d'
+    });
+  </script>
+  <script src="{% static "js/myDemand.js" %}"></script>
+{% endblock %}
+
+{% block footer %}
+  {% include "footer.html" %}
+{% endblock %}

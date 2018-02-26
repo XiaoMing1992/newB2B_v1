@@ -1,0 +1,5 @@
+/*bootstrap 按钮去除圆角样式*/
+.btn{ border-radius: 0px; }
+
+/*将bootstrap的默认字体设置为微软雅黑*/
+html{ font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif, "宋体"; }

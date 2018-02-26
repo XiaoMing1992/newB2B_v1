@@ -1,0 +1,11 @@
+{% extends "admin/common/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>会员审核</title>
+{% endblock %}
+
+{% block body%}
+  {% include "admin/member/member_audit_table.html" %}
+{% endblock%}

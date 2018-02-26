@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+     <title>设置头像</title>
+    <script type="text/javascript">
+            function checkFile() {
+                document.getElementById("preview_img1").src = "http://127.0.0.1:8000/static/images/temp/5.jpg"
+                document.getElementById("preview_img2").src = "http://127.0.0.1:8000/static/images/temp/5.jpg"
+            }
+        </script>
+</head>
+
+<body>
+   <div class="well">
+       <form class="form-horizontal" method = 'post'enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% block content %}
+
+        {% endblock %}
+
+        <p class="form-actions">
+            <input type="submit" name="sure" value="确定">
+            <input type="submit" name="cancel" value="取消">
+        </p>
+       </form>
+   </div>
+<br>
+</body>
+</html>

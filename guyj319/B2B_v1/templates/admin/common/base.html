@@ -1,0 +1,20 @@
+{% extends "admin/common/simpleBase.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+  {% include "admin/common/banner.html" %}
+  <div class="am-cf admin-main">
+    {% include "admin/common/navigation.html" %}
+    {% block body%}
+    {% endblock%}
+  </div>
+  {% include "admin/common/footer.html" %}
+{% endblock%}
+
+{% block logoutJs %}
+  <script src="{% static "admin/common/js/base.js" %}"></script>
+{% endblock %}
+
+{% block customJs %}
+{% endblock %}

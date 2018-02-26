@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>全部会员</title>
+</head>
+
+<body>
+   <div class="well">
+      <p>名称              地区      主营品牌         联系人      联系电话         状态      操作</p>
+      {% for item in vip_list %}
+          <p>
+              {{ item.company_name }}        {{ item.region }}  {{ item.user_trademark }}
+              {% for people in item.peoples %}
+                  {{ people.name }}     {{ people.phone }}
+              {% endfor %}
+
+              <a href="/editVIP/?operation_id={{ item.id }}">编辑</a>
+              <a href="/blackVIP/?operation_id={{ item.id }}">拉黑</a>
+              <a href="/deleteVipFromAllVip/?operation_id={{ item.id }}">作废</a>
+          </p>
+        {% empty %}
+          <p>无结果</p>
+       {% endfor %}
+       <p><a href="/adminHome/">主页</a></p>
+      <p><a href="/adminLogout/">退出</a></p>
+   </div>
+<br>
+</body>
+</html>

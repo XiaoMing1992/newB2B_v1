@@ -1,0 +1,55 @@
+<!-- content start -->
+<div class="admin-content">
+  <div class="admin-content-body">
+
+    <hr>
+
+    <div class="am-g">
+      <div class="am-u-sm-12">
+        <form class="am-form">
+          <table class="am-table am-table-striped am-table-hover table-main">
+            <thead>
+            <tr>
+              <th class="table-id">姓名</th>
+              <th class="table-title">账号</th>
+              <th class="table-type">操作</th>
+              <th><a href="#" data-am-modal="{target: '#add-user-dialog'}">+添加账号</a></th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for item in administrator_list %}
+                <tr id="tr-{{ item.id }}">
+                  <td class="am-hide-sm-only" style="width: 200px;">{{ item.name }}</td>
+                  <td class="am-hide-sm-only" style="width: 200px;">{{ item.account }}</td>
+                  <td>
+                    <div class="am-btn-toolbar">
+                      <div class="am-btn-group am-btn-group-xs">
+                        <a href="/accountSetting/"
+                           class="am-btn
+                                 am-btn-default
+                                 am-btn-xs
+                                 am-text-secondary"
+                           id="edit-{{ item.id }}">
+                          <span class="am-icon-pencil-square-o"></span> 修改
+                        </a>
+                        <button class="am-btn
+                                      am-btn-default
+                                      am-btn-xs
+                                      am-text-danger
+                                      am-hide-sm-only"
+                                id="delete-{{ item.id }}">
+                          <span class="am-icon-trash-o"></span> 作废
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- content end -->

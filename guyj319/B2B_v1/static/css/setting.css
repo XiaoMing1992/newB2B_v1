@@ -1,0 +1,55 @@
+
+.title-panel{
+  min-height: 40px;
+  background: #39aea8;
+}
+
+.title-text{
+  margin-left: -70px;
+  padding-top: 10px;
+  color: white;
+}
+
+.page-blank{ margin-bottom: 250px; }
+
+.content-panel-blank{ margin-bottom: 30px; }
+
+ul{
+  list-style-type: none;
+}
+
+li:visited{ background: #ccc; }
+
+.item{
+  width: 170px;
+  height: 35px;
+  background: #ccc;
+}
+
+.item-text{
+  font-size: 20px;
+  color: #09c;
+}
+
+.setting-text{
+  text-align: right;
+  padding-top: 20px;
+}
+
+.old-password-error{ color: red; }
+
+.old-mobile-error{ color: red; }
+
+.current-password-error{ color: red; }
+
+.error{ color: red;}
+
+.my-card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: white;
+}
+
+.setting-panel{ min-height: 450px; }
+
+/*面板间距*/
+.panel-blank{ margin-bottom: 50px; }

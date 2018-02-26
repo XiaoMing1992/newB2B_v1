@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>黑名单</title>
+</head>
+
+<body>
+   <div class="well">
+      <p>名称              地区      拉黑时间         联系人      联系电话               操作</p>
+      {% for item in black_list %}
+          <p>
+              {{ item.company_name }}        {{ item.region }}  {{ item.black_time.year }}年{{ item.black_time.month }}月{{ item.black_time.day }}日
+              {% for people in item.peoples %}
+                  {{ people.name }}     {{ people.phone }}
+              {% endfor %}
+
+              <a href="/deleteFromBlackList/?operation_id={{ item.id }}">作废</a>
+          </p>
+        {% empty %}
+          <p>无结果</p>
+       {% endfor %}
+       <p><a href="/adminHome/">主页</a></p>
+      <p><a href="/adminLogout/">退出</a></p>
+   </div>
+<br>
+</body>
+</html>

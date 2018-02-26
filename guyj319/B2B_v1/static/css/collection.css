@@ -1,0 +1,33 @@
+
+.container-custom{ min-height: 450px; }
+
+.tab-panel{
+  margin-bottom: 15px;
+  background: #39aea8;
+}
+
+/*车源详情*/
+.update-time{ color: #aaa; }
+
+table{ margin-left: 30px; }
+
+.collection-blank{ margin-bottom: 20px; }
+
+.price-tag{
+  margin-top: 50px;
+  color: #f60;
+}
+
+.btn-view-detail{}
+
+.cancle-collect{}
+
+/*商家详情介绍*/
+.merchant-material{ text-align: center; }
+
+.card{ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+
+/*面板间距*/
+.page-blank{ margin-bottom: 250px; }
+
+.panel-blank{ margin-bottom: 50px; }

@@ -1,0 +1,231 @@
+{% extends "weixin/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>发布车源</title>
+{% endblock %}
+
+{% block customCss %}
+	<link href="{% static "weixin/css/mui.picker.min.css" %}" rel="stylesheet" />
+  <link href="{% static "weixin/css/mui.poppicker.css" %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+	<header id="header" class="mui-bar mui-bar-nav" style="background: #197; color: white;">
+		<a href="#" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: white;"></a>
+		<h1 class="mui-title" style="color: white;">发布车源</h1>
+	</header>
+	
+	<div class="mui-content">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">车型</a>
+				<div class="mui-collapse-content">
+					<a href="#middlePopover" 
+						class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined" 
+						style="padding: 5px 20px;">选择品牌</a>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">颜色</a>
+				<div class="mui-collapse-content">
+					<div class="mui-card">
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-checkbox">
+								<label>白色</label>
+								<input name="checkbox1" value="白色" type="checkbox">
+							</div>
+							<div class="mui-input-row mui-checkbox">
+								<label>黑色</label>
+								<input name="checkbox1" value="黄色" type="checkbox" >
+							</div>
+							<div class="mui-input-row mui-checkbox">
+								<label>银色</label>
+								<input name="checkbox1" value="黄色" type="checkbox" >
+							</div>
+							<div class="mui-input-row mui-checkbox">
+								<label>灰色</label>
+								<input name="checkbox1" value="黄色" type="checkbox" >
+							</div>
+							<div class="mui-input-row mui-checkbox">
+								<label>红色</label>
+								<input name="checkbox1" value="黄色" type="checkbox" >
+							</div>
+							<div class="mui-input-row mui-checkbox">
+								<label>金色</label>
+								<input name="checkbox1" value="黄色" type="checkbox" >
+							</div>
+							<div class="mui-input-row mui-checkbox">
+								<label>棕色</label>
+								<input name="checkbox1" value="黄色" type="checkbox" >
+							</div>
+						</form>
+					</div>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">货期</a>
+				<div class="mui-collapse-content">
+					<p>test</p>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">支付方式</a>
+				<div class="mui-collapse-content">
+					<div class="mui-card">
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-radio">
+								<label>现货</label>
+								<input name="radio1" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>期货</label>
+								<input name="radio1" type="radio" checked>
+							</div>
+						</form>
+					</div>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">销售区域</a>
+				<p></p>
+				<div class="mui-collapse-content">
+					<button id='showCityPicker' class="mui-btn mui-btn-block" type='button'>请选择销售区域</button>
+					<div id='cityResult' class="ui-alert"></div>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">物流方式</a>
+				<div class="mui-collapse-content">
+					<div class="mui-card">
+						<form class="mui-input-group">
+							<div class="mui-input-row mui-radio">
+								<label>自选物流</label>
+								<input name="radio1" type="radio">
+							</div>
+							<div class="mui-input-row mui-radio">
+								<label>委托物流</label>
+								<input name="radio1" type="radio" checked>
+							</div>
+						</form>
+					</div>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">报价</a>
+				<div class="mui-collapse-content">
+					<div class="mui-card">
+						<form class="mui-input-group">
+							<div class="mui-input-row">
+								<label>行价</label>
+								<div class="mui-numbox">
+									<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+									<input class="mui-input-numbox" type="number" />
+									<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+								</div>
+							</div>
+							<div class="mui-input-row">
+								<label>优惠</label>
+								<div class="mui-numbox">
+									<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+									<input class="mui-input-numbox" type="number" />
+									<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">提货时间</a>
+				<div class="mui-collapse-content">
+					<p>test</p>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">过期时间</a>
+				<div class="mui-collapse-content">
+					<button id='demo3' data-options='{"value":"2015-10-10 10:10","beginYear":2010,"endYear":2020}' class="btn mui-btn mui-btn-block">选择日期时间 ...</button>
+					<p id="result">test</p>
+				</div>
+			</li>
+			<li class="mui-table-view-cell mui-collapse">
+				<a class="mui-navigate-right" href="#">备注说明</a>
+				<div class="mui-collapse-content">
+					<div class="mui-input-row" style="margin: 10px 5px;">
+						<textarea id="textarea" rows="5" placeholder="最多输入140字"></textarea>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<br>
+		<button class="mui-btn mui-btn-warning" style="width: 100%;" type="button">发布</button>
+	</div>
+	
+	<div id="middlePopover" class="mui-popover">
+		<div class="mui-popover-arrow"></div>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell"><a href="#">宝马</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">奔驰</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">劳斯莱斯</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">特斯拉</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">路虎</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">奥迪</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">法拉利</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block customJs %}
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/mui.poppicker.js"></script>
+	<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		(function($, doc) {
+				
+				//$.init();
+				$.ready(function() {
+					mui.init({
+						swipeBack: true //启用右滑关闭功能
+					});
+					mui('.mui-scroll-wrapper').scroll();
+					mui('body').on('shown', '.mui-popover', function(e) {
+						//console.log('shown', e.detail.id);//detail为当前popover元素
+					});
+					mui('body').on('hidden', '.mui-popover', function(e) {
+						//console.log('hidden', e.detail.id);//detail为当前popover元素
+					});
+					
+					//级联示例
+					var cityPicker = new $.PopPicker({
+						layer: 2
+					});
+					cityPicker.setData(cityData);
+					var showCityPickerButton = doc.getElementById('showCityPicker');
+					var cityResult = doc.getElementById('cityResult');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker.show(function(items) {
+							cityResult.innerText = "你选择的城市是:" + items[0].text + " " + items[1].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					
+				});
+			})(mui, document);
+	</script>
+{% endblock %}

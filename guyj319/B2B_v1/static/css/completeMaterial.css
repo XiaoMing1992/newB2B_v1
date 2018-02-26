@@ -1,0 +1,22 @@
+
+.container-custom{ min-height: 500px; }
+
+.title-panel{
+  min-height: 40px;
+  background: #39aea8;
+}
+
+.title-text{
+  margin-left: 30px;
+  padding-top: 10px;
+  color: white;
+}
+
+.error-tip{ color: red; }
+
+.material-title{
+  color: #333;
+}
+
+/*面板间距*/
+.panel-blank{ margin-bottom: 50px; }

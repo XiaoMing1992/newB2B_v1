@@ -1,0 +1,92 @@
+
+.title-panel{
+  min-height: 40px;
+  background: #39aea8;
+}
+
+.title-text{
+  margin-left: 50px;
+  padding-top: 10px;
+  color: white;
+}
+
+/*车源信息表单*/
+.car-info-tag{
+  padding-top: 10px;
+  text-align: right;
+  color: #666;
+}
+
+#carTypeForm{ margin-top: 10px;  }
+
+#payment-form{ margin-left: -10px; }
+
+#ship-date-form{ margin-left: -10px; }
+
+#region-form{ margin-left: -10px; }
+
+#logistics-form{ margin-left: -10px; }
+
+.car-specification{}
+
+.car-type{}
+
+.car-type{}
+
+.color-option{}
+
+.ship-type{}
+
+.payment{}
+
+.region{}
+
+.logistics{}
+
+.price{}
+
+.ship-date{}
+
+.exceed-date{}
+
+.contact{}
+
+.comment{}
+
+.contact-box{
+  border: 1px solid #ccc;
+}
+
+/*预览车源*/
+.content-row{
+  border: 1.8px dotted #ccc;
+}
+
+.car-type{ margin-top: 2px; }
+
+.tag{
+  min-width: 100px;
+  text-align: right;
+  color: #aaa;
+}
+
+.color-sample{
+  margin-left: 70px;
+  margin-top: -30px;
+  width: 40px;
+  height: 18px;
+}
+
+.price{ color: orange; }
+
+.emphasize-text{
+  margin-left: 10px;
+  color: #06c;
+}
+
+.error{ color: red; }
+
+/*面板间距*/
+.panel-blank{ margin-bottom: 50px; }
+
+.page-blank{ margin-bottom: 250px; }

@@ -1,0 +1,38 @@
+{% extends "admin/common/simpleBase.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>登陆</title>
+{% endblock %}
+
+{% block content %}
+  <div style="height: 200px;"></div>
+  <div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+      <form class="am-form">
+        <label for="user_name">用户名:</label>
+        <input type="text" name="" id="user_name" value="">
+        <br>
+        <label for="password">密码:</label>
+        <input type="password" name="" id="password" value="">
+        <br>
+        <label for="remember-me">
+          <input id="remember-me" type="checkbox">
+          记住密码
+        </label>
+        <br />
+        <div class="am-cf">
+          <input type="button" name="" value="登 录" class="am-btn am-btn-primary am-btn-sm am-fl" id="login">
+          <input type="button" name="" value="忘记密码 ^_^? " class="am-btn am-btn-default am-btn-sm am-fr">
+        </div>
+      </form>
+      <hr>
+      <p>© 广东乐车科技有限公司版权所有!</p>
+    </div>
+  </div>
+{% endblock%}
+
+{% block customJs %}
+  <script src="{% static "admin/home/js/login.js" %}"></script>
+{% endblock %}

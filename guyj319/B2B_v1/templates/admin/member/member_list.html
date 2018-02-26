@@ -1,0 +1,11 @@
+{% extends "admin/common/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>所有会员</title>
+{% endblock %}
+
+{% block body%}
+  {% include "admin/member/member_table.html" %}
+{% endblock%}

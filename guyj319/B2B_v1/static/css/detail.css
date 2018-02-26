@@ -1,0 +1,52 @@
+
+.content-row{
+  border-top: 2px dotted #ccc;
+  border-bottom: 2px dotted #ccc;
+}
+
+.car-type{ margin-top: 2px; }
+
+.tag{
+  min-width: 100px;
+  text-align: right;
+  color: #aaa;
+}
+
+.color-sample{
+  margin-left: 70px;
+  margin-top: -30px;
+  width: 40px;
+  height: 18px;
+}
+
+.price{ color: orange; }
+
+.emphasize-text{
+  margin-left: 10px;
+  color: #06c;
+}
+
+#collectMerchant{ 
+  min-width:260px;
+  background: #f60; 
+  color: white;
+}
+
+#collectInfo{
+  min-width:100px;
+  background: #f60; 
+  color: white; 
+}
+
+/*商家详情介绍*/
+.merchant-material{ text-align: center; }
+
+.my-card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: white;
+}
+
+/*面板间距*/
+.page-blank{ margin-bottom: 250px; }
+
+.panel-blank{ margin-bottom: 50px; }

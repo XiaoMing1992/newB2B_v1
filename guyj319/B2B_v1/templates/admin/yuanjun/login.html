@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>管理员登录</title>
+</head>
+
+<body>
+   <h1>管理员登录</h1>
+   <div class="well">
+       <form class="form-horizontal" method = 'post'enctype="multipart/form-data">
+        {% csrf_token %}
+            <p class="form-actions">
+                账号：<input type="text" id="username" name="username"/>
+            </p>
+            <p class="form-actions">
+                密码：<input type="password" id="password" name="password"/>
+            </p>
+            <p class="form-actions">
+                <input type="submit" id="login" name="login" value="登录"/>
+            </p>
+       </form>
+   </div>
+<br>
+</body>
+</html>

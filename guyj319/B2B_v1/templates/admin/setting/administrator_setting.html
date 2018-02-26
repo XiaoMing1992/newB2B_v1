@@ -1,0 +1,17 @@
+{% extends "admin/common/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>管理员设置</title>
+{% endblock %}
+
+{% block body%}
+  {% include "admin/setting/administrator_setting_panel.html" %}
+  {% include "admin/setting/add_new_account_dialog.html" %}
+{% endblock%}
+
+{% block customJs %}
+  <script src="{% static "admin/setting/js/add_user.js" %}"></script>
+  <script src="{% static "admin/setting/js/administrator_list_operation.js" %}"></script>
+{% endblock %}

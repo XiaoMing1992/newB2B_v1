@@ -1,0 +1,11 @@
+{% extends "admin/common/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  <title>所有内容</title>
+{% endblock %}
+
+{% block body%}
+  {% include "admin/content/content_table.html" %}
+{% endblock%}
